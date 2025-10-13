@@ -1,0 +1,46 @@
+name: Lighthouse CI (Shopify)
+
+on:
+  pull_request:
+    branches: ["main"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pull-requests: write  # Required for posting PR comments
+  checks: write         # Required for posting check results
+
+jobs:
+  lhci:
+    name: Audit storefront with Lighthouse
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Run Shopify Lighthouse CI
+        id: lhci
+        uses: shopify/lighthouse-ci-action@v1
+        with:
+          store: ${{ secrets.SHOPIFY_STORE }}
+          password: ${{ secrets.SHOPIFY_PASSWORD }}
+          access_token: ${{ secrets.SHOPIFY_ACCESS_TOKEN }}
+          theme_root: ./ruche-theme
+          collection_handle: ${{ secrets.SHOPIFY_COLLECTION_HANDLE }}
+          product_handle: ${{ secrets.SHOPIFY_PRODUCT_HANDLE }}
+          lhci_github_app_token: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
+          lhci_min_score_performance: 0.60
+          lhci_min_score_accessibility: 0.90
+
+      - name: Summarise Lighthouse scores
+        if: always()
+        run: |
+          echo "## 🏠 Lighthouse CI Results" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### Thresholds" >> $GITHUB_STEP_SUMMARY
+          echo "- ⚡ Performance min: **0.60**" >> $GITHUB_STEP_SUMMARY
+          echo "- ♿ Accessibility min: **0.90**" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "See the job logs and PR annotations for detailed reports and recommendations." >> $GITHUB_STEP_SUMMARY
