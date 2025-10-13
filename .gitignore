@@ -8,3 +8,22 @@
 ehthumbs.db
 Thumbs.db
 .shopify
+
+# Dependencies
+node_modules/
+dist/
+build/
+*.log
+
+# Environment
+.env
+.env.local
+
+# Shopify
+config/settings_data.json
+.shopifyignore
+
+# Large branding assets
+*.psd
+Ruche Branding/01_Brand Guidelines/*.pdf
+Ruche Branding/Ruche*.pdf

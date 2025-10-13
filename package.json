@@ -1,0 +1,35 @@
+{
+  "name": "ruche-shopify",
+  "version": "1.0.0",
+  "description": "Ruche ecommerce Shopify theme",
+  "main": "index.js",
+  "scripts": {
+    "dev": "shopify theme dev",
+    "build": "webpack --mode production",
+    "build:dev": "webpack --mode development",
+    "watch": "webpack --mode development --watch",
+    "deploy": "shopify theme push",
+    "pull": "shopify theme pull"
+  },
+  "dependencies": {
+    "lazysizes": "^5.3.2",
+    "swiper": "^11.0.0",
+    "alpinejs": "^3.13.0"
+  },
+  "devDependencies": {
+    "webpack": "^5.88.0",
+    "webpack-cli": "^5.1.0",
+    "postcss": "^8.4.0",
+    "postcss-loader": "^7.3.0",
+    "autoprefixer": "^10.4.0",
+    "cssnano": "^6.0.0",
+    "css-loader": "^6.8.0",
+    "mini-css-extract-plugin": "^2.7.0",
+    "babel-loader": "^9.1.0",
+    "@babel/core": "^7.22.0",
+    "@babel/preset-env": "^7.22.0"
+  },
+  "keywords": ["shopify", "ecommerce", "ruche", "theme"],
+  "author": "Ruche Team",
+  "license": "MIT"
+}
