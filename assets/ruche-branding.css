@@ -5,19 +5,17 @@
  * Fonts: Arpona (headings), Neue Haas Grotesk (body), This Reality (accent)
  */
 
-/* Override Shopify theme color variables with Ruche brand colors */
+/* Ruche brand color variables - available for use but not forcing all schemes */
 :root {
-  --color-foreground: 61, 57, 53 !important; /* #3D3935 in RGB */
+  --color-ruche-black-rgb: 61, 57, 53; /* #3D3935 in RGB */
+  --color-ruche-grey-rgb: 84, 88, 89; /* #545859 in RGB */
 }
 
-/* Also override for all color scheme classes */
-.color-scheme-1,
-.color-scheme-2,
-.color-scheme-3,
-.color-scheme-4,
-.color-scheme-5 {
-  --color-foreground: 61, 57, 53 !important;
-}
+/* Note: Color schemes now work as designed in Shopify
+   - scheme-1 and scheme-2 will use default light colors
+   - scheme-3 will use dark background with white text
+   - Use color scheme settings in theme customizer to control colors
+*/
 
 /* Apply Ruche fonts globally when configured */
 body {

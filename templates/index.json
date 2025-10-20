@@ -51,6 +51,45 @@
       "settings": {
       }
     },
+    "product_showcase": {
+      "type": "product-showcase",
+      "blocks": {
+        "feature_1": {
+          "type": "feature",
+          "settings": {
+            "text": "Antibacterial"
+          }
+        },
+        "feature_2": {
+          "type": "feature",
+          "settings": {
+            "text": "Vegan"
+          }
+        },
+        "feature_3": {
+          "type": "feature",
+          "settings": {
+            "text": "Folds Compact"
+          }
+        }
+      },
+      "block_order": [
+        "feature_1",
+        "feature_2",
+        "feature_3"
+      ],
+      "settings": {
+        "heading": "The Essential You'll Actually Love",
+        "heading_size": "h1",
+        "product": "",
+        "product_title": "The Ruche Mat",
+        "description": "<p>A sleek, germ-resistant changing mat that folds like a clutch.</p>",
+        "button_label": "Shop the Mat",
+        "color_scheme": "scheme-3",
+        "padding_top": 60,
+        "padding_bottom": 60
+      }
+    },
     "rich_text": {
       "type": "rich-text",
       "blocks": {
@@ -207,6 +246,7 @@
   "order": [
     "image_banner",
     "marquee_DkMpQR",
+    "product_showcase",
     "rich_text",
     "featured_collection",
     "collage",
