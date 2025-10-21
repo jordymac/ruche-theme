@@ -90,6 +90,7 @@
         "feature_3"
       ],
       "settings": {
+        "header_icon": "shopify://shop_images/Ruche-BrandmarkColourway2_5.svg",
         "heading": "A CHANGING MAT THAT FOLDS INTO A STYLISH CLUTCH",
         "heading_size": "h1",
         "product": "ruche-baby-change-bag",
@@ -104,6 +105,12 @@
     "story_section": {
       "type": "story-section",
       "blocks": {
+        "subheading_M7gKkE": {
+          "type": "subheading",
+          "settings": {
+            "subheading": "Our Story"
+          }
+        },
         "heading": {
           "type": "heading",
           "settings": {
@@ -114,7 +121,7 @@
         "text": {
           "type": "text",
           "settings": {
-            "text": "<p>Every parent has that moment. Mine came in a chic café, surrounded by design-conscious friends, when I realized my baby bag looked like it belonged in a different life. I wanted products that matched my aesthetic, not compromised it.</p><p>So I created Ruche — where style meets function, and parents don't have to choose between the two.</p>"
+            "text": "<p>I founded Ruche after becoming a mum myself. As an entrepreneur, solicitor, wife, and mother, I was overwhelmed by baby products that looked childish, felt impractical, or fell short on safety. My lightbulb moment came during postpartum, when I had to change my baby on a public bathroom table and was shocked by how unhygienic it was.</p><p>That moment sparked a mission: to create products that protect our babies while empowering mums to feel confident, chic, and put together. I built Ruche to redefine motherhood with essentials that are safe, stylish, and seamlessly designed for modern living.</p>"
           }
         },
         "button": {
@@ -127,78 +134,81 @@
         }
       },
       "block_order": [
+        "subheading_M7gKkE",
         "heading",
         "text",
         "button"
       ],
       "settings": {
+        "image": "shopify://shop_images/ruche-baby-mother-holding-ruche-fold-out-mat-clutch.webp",
         "color_scheme": "scheme-1",
         "padding_top": 0,
         "padding_bottom": 0
       }
     },
-    "product_benefits": {
+    "product_benefits_gK6pme": {
       "type": "product-benefits",
       "blocks": {
-        "benefit_1": {
+        "benefit_rKXTpF": {
           "type": "benefit",
           "settings": {
             "heading": "Antibacterial",
-            "text": "<p>Eliminates 99.9% of bacteria for a hygienic surface</p>"
+            "text": "<p>Eliminates 99.9% of bacteria</p>"
           }
         },
-        "benefit_2": {
+        "benefit_ziWJDY": {
           "type": "benefit",
           "settings": {
             "heading": "Vegan Leather",
-            "text": "<p>Premium silicone leather with a luxe finish</p>"
+            "text": "<p>Premium silicone leather</p>"
           }
         },
-        "benefit_3": {
+        "benefit_UzPJ4Y": {
           "type": "benefit",
           "settings": {
             "heading": "Folds Compact",
-            "text": "<p>Collapses to fit seamlessly into any bag</p>"
+            "text": "<p>Fits in any bag</p>"
           }
         },
-        "benefit_4": {
+        "benefit_7mY9Fj": {
           "type": "benefit",
           "settings": {
             "heading": "Easy to Clean",
-            "text": "<p>Wipe clean in seconds, machine washable</p>"
+            "text": "<p>Wipe clean in seconds</p>"
           }
         },
-        "benefit_5": {
+        "benefit_DHa4ie": {
           "type": "benefit",
           "settings": {
             "heading": "Lightweight",
-            "text": "<p>Under 500g so you barely notice the weight</p>"
+            "text": "<p>Under 500g</p>"
           }
         },
-        "benefit_6": {
+        "benefit_zattbn": {
           "type": "benefit",
           "settings": {
             "heading": "Water-Resistant",
-            "text": "<p>Spill-proof surface protects against accidents</p>"
+            "text": "<p>Spill-proof surface</p>"
           }
         }
       },
       "block_order": [
-        "benefit_1",
-        "benefit_2",
-        "benefit_3",
-        "benefit_4",
-        "benefit_5",
-        "benefit_6"
+        "benefit_rKXTpF",
+        "benefit_ziWJDY",
+        "benefit_UzPJ4Y",
+        "benefit_7mY9Fj",
+        "benefit_DHa4ie",
+        "benefit_zattbn"
       ],
+      "name": "Product Benefits",
       "settings": {
-        "heading": "DESIGNED FOR MODERN PARENTS",
+        "heading": "Why Ruche?",
         "heading_size": "h1",
         "columns_desktop": 3,
         "columns_mobile": "2",
-        "color_scheme": "scheme-1",
-        "padding_top": 80,
-        "padding_bottom": 80
+        "color_scheme": "",
+        "padding_top": 60,
+        "padding_bottom": 60
       }
     }
   },
@@ -207,6 +217,6 @@
     "marquee_DkMpQR",
     "product_showcase",
     "story_section",
-    "product_benefits"
+    "product_benefits_gK6pme"
   ]
 }

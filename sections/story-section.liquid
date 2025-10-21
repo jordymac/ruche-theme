@@ -36,6 +36,11 @@
       <div class="story-section__content-inner">
         {%- for block in section.blocks -%}
           {%- case block.type -%}
+            {%- when 'subheading' -%}
+              <p class="story-section__subheading" {{ block.shopify_attributes }}>
+                {{ block.settings.subheading }}
+              </p>
+
             {%- when 'heading' -%}
               <h2 class="story-section__heading {{ block.settings.heading_size }}" {{ block.shopify_attributes }}>
                 {{ block.settings.heading }}
@@ -114,6 +119,19 @@
   ],
   "blocks": [
     {
+      "type": "subheading",
+      "name": "Subheading",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "subheading",
+          "default": "Our Story",
+          "label": "Subheading"
+        }
+      ]
+    },
+    {
       "type": "heading",
       "name": "Heading",
       "limit": 1,
@@ -188,6 +206,9 @@
     {
       "name": "Story Section",
       "blocks": [
+        {
+          "type": "subheading"
+        },
         {
           "type": "heading"
         },

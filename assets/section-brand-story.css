@@ -1,0 +1,142 @@
+.brand-story {
+  overflow: hidden;
+}
+
+.brand-story__container {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6rem;
+  align-items: flex-start;
+}
+
+/* Problem Section - Left Side */
+.brand-story__problem {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+
+.brand-story__heading--problem {
+  margin: 0 0 2rem 0;
+  letter-spacing: -0.02em;
+  text-align: left;
+}
+
+.brand-story__content-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+  width: 100%;
+}
+
+.brand-story__text--problem {
+  max-width: 100%;
+  text-align: left;
+}
+
+/* Problem Image - Below text on left */
+.brand-story__image-wrapper--problem {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  min-height: 400px;
+  width: 100%;
+}
+
+.brand-story__image-wrapper--problem .brand-story__image {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Solution Section - Right Side */
+.brand-story__solution {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+  min-height: 100%;
+}
+
+.brand-story__content-wrapper--solution {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: flex-end;
+  gap: 2rem;
+  text-align: right;
+}
+
+.brand-story__text--solution {
+  max-width: 100%;
+  text-align: right;
+}
+
+.brand-story__heading--solution {
+  margin: 0;
+  letter-spacing: -0.02em;
+  text-align: right;
+}
+
+/* Typography */
+.brand-story__text {
+  font-size: 1.4rem;
+  line-height: 1.6;
+}
+
+.brand-story__text p {
+  margin: 0;
+}
+
+/* Mobile Responsive */
+@media screen and (max-width: 749px) {
+  .brand-story__container {
+    grid-template-columns: 1fr;
+    gap: 4rem;
+  }
+
+  .brand-story__image-wrapper--problem {
+    min-height: 300px;
+  }
+
+  .brand-story__text--problem,
+  .brand-story__text--solution {
+    max-width: 100%;
+    text-align: left;
+  }
+
+  .brand-story__heading--problem,
+  .brand-story__heading--solution {
+    text-align: left;
+    font-size: 2.5rem;
+  }
+
+  .brand-story__content-wrapper--solution {
+    align-items: flex-start;
+    justify-content: flex-start;
+    text-align: left;
+  }
+
+  .brand-story__heading--solution {
+    text-align: left;
+  }
+
+  .brand-story__solution {
+    align-items: flex-start;
+    justify-content: flex-start;
+  }
+}
+
+/* Tablet */
+@media screen and (min-width: 750px) and (max-width: 989px) {
+  .brand-story__container {
+    gap: 4rem;
+  }
+
+  .brand-story__image-wrapper--problem {
+    min-height: 350px;
+  }
+}
