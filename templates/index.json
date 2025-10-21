@@ -136,12 +136,77 @@
         "padding_top": 0,
         "padding_bottom": 0
       }
+    },
+    "product_benefits": {
+      "type": "product-benefits",
+      "blocks": {
+        "benefit_1": {
+          "type": "benefit",
+          "settings": {
+            "heading": "Antibacterial",
+            "text": "<p>Eliminates 99.9% of bacteria for a hygienic surface</p>"
+          }
+        },
+        "benefit_2": {
+          "type": "benefit",
+          "settings": {
+            "heading": "Vegan Leather",
+            "text": "<p>Premium silicone leather with a luxe finish</p>"
+          }
+        },
+        "benefit_3": {
+          "type": "benefit",
+          "settings": {
+            "heading": "Folds Compact",
+            "text": "<p>Collapses to fit seamlessly into any bag</p>"
+          }
+        },
+        "benefit_4": {
+          "type": "benefit",
+          "settings": {
+            "heading": "Easy to Clean",
+            "text": "<p>Wipe clean in seconds, machine washable</p>"
+          }
+        },
+        "benefit_5": {
+          "type": "benefit",
+          "settings": {
+            "heading": "Lightweight",
+            "text": "<p>Under 500g so you barely notice the weight</p>"
+          }
+        },
+        "benefit_6": {
+          "type": "benefit",
+          "settings": {
+            "heading": "Water-Resistant",
+            "text": "<p>Spill-proof surface protects against accidents</p>"
+          }
+        }
+      },
+      "block_order": [
+        "benefit_1",
+        "benefit_2",
+        "benefit_3",
+        "benefit_4",
+        "benefit_5",
+        "benefit_6"
+      ],
+      "settings": {
+        "heading": "DESIGNED FOR MODERN PARENTS",
+        "heading_size": "h1",
+        "columns_desktop": 3,
+        "columns_mobile": "2",
+        "color_scheme": "scheme-1",
+        "padding_top": 80,
+        "padding_bottom": 80
+      }
     }
   },
   "order": [
     "image_banner",
     "marquee_DkMpQR",
     "product_showcase",
-    "story_section"
+    "story_section",
+    "product_benefits"
   ]
 }

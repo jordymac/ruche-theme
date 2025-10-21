@@ -26,6 +26,16 @@
 
     {%- comment -%} Centered Header {%- endcomment -%}
     <div class="product-showcase__header center">
+      {%- if section.settings.header_icon != blank -%}
+        <div class="product-showcase__header-icon">
+          {{
+            section.settings.header_icon
+            | image_url: width: 100
+            | image_tag: loading: 'lazy', class: 'product-showcase__icon-image'
+          }}
+        </div>
+      {%- endif -%}
+
       {%- if section.settings.heading != blank -%}
         <h2 class="product-showcase__heading {{ section.settings.heading_size }}">
           {{ section.settings.heading }}
@@ -73,6 +83,11 @@
   "tag": "section",
   "class": "section",
   "settings": [
+    {
+      "type": "image_picker",
+      "id": "header_icon",
+      "label": "Header Icon"
+    },
     {
       "type": "text",
       "id": "heading",

@@ -11,6 +11,16 @@
   margin-right: auto;
 }
 
+.product-showcase__header-icon {
+  margin-bottom: 1.5rem;
+}
+
+.product-showcase__icon-image {
+  width: auto;
+  height: 40px;
+  display: inline-block;
+}
+
 .product-showcase__heading {
   margin: 0 0 1rem 0;
   color: rgb(var(--color-foreground));
