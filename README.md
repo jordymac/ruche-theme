@@ -148,4 +148,78 @@ Ensure that you follow the list of [theme store requirements](https://shopify.de
 ## License
 
 Copyright (c) 2021-present Shopify Inc. See [LICENSE](/LICENSE.md) for further details.
-# ruche-theme
+
+---
+
+# Ruche Theme
+
+Custom Shopify theme for Ruche - premium designer baby products.
+
+## Theme Workflow
+
+**Branches → Themes**
+- `main` → Live theme (ID: 136720220226)
+- `staging` → Staging theme (ID: TBD - duplicate ruche when ready for production)
+- `feature/*` → Unpublished dev theme (named `dev-<branch>`)
+
+> Keep `config/settings_data.json` out of Git. It's store content.
+
+### Daily Flow
+
+1. **Sync from store (clean tree only):**
+   ```bash
+   git status
+   # commit or stash first
+   shopify theme pull --theme 136720220226
+   ```
+
+2. **Local preview (safe):**
+   ```bash
+   npm run theme:dev
+   # or: shopify theme dev
+   ```
+
+3. **Push to dev theme (feature branch):**
+   ```bash
+   npm run theme:push:dev
+   # or manually:
+   # BR=$(git rev-parse --abbrev-ref HEAD)
+   # DEV_NAME="dev-$BR"
+   # shopify theme push --unpublished --theme "$DEV_NAME"
+   ```
+
+4. **Promote to staging:**
+   ```bash
+   git checkout staging
+   git merge <feature-branch>
+   npm run theme:push:staging
+   # Note: Update STAGING_THEME_ID in package.json when ready
+   ```
+
+5. **Go live (PR → main):**
+   ```bash
+   git checkout main
+   git merge staging
+   npm run theme:push:live
+   ```
+
+### Safety Snippets
+
+**Stash before pull:**
+```bash
+git stash push -u -m "pre-pull"
+shopify theme pull --theme 136720220226
+git stash pop
+```
+
+**Revert accidental live push:**
+```bash
+git revert <bad_sha>
+shopify theme push --theme 136720220226
+```
+
+### Notes
+- Keep lockfile (package-lock.json) in Git
+- Use PRs and branch protection on main
+- Run `npm run theme:check` before committing
+- Never commit `config/settings_data.json`

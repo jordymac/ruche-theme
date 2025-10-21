@@ -1,5 +1,4 @@
-# OS generated files #
-######################
+# OS
 .DS_Store
 .DS_Store?
 ._*
@@ -7,23 +6,44 @@
 .Trashes
 ehthumbs.db
 Thumbs.db
-.shopify
 
-# Dependencies
+# Shopify CLI cache & auth
+.shopify/
+
+# Dependencies & builds
 node_modules/
 dist/
 build/
 *.log
+npm-debug.log*
+yarn-error.log*
+.pnp.*
+.pnp.cjs
 
-# Environment
+# Env files
 .env
 .env.local
+.env.development.local
+.env.test.local
+.env.production.local
 
-# Shopify
+# Editors/IDEs
+.vscode/
+.idea/
+*.swp
+
+# Tool caches
+.eslintcache
+.stylelintcache
+.cache/
+.parcel-cache/
+
+# Optional: source maps
+# *.map
+
+# Shopify – store-specific settings not versioned
 config/settings_data.json
-.shopifyignore
 
 # Large branding assets
-*.psd
-Ruche Branding/01_Brand Guidelines/*.pdf
-Ruche Branding/Ruche*.pdf
+Ruche\ Branding/01_Brand\ Guidelines/*.pdf
+Ruche\ Branding/Ruche*.pdf

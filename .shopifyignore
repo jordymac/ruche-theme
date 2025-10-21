@@ -1,0 +1,19 @@
+# Don't upload dev artefacts to the store
+node_modules
+dist
+build
+.cache
+.parcel-cache
+.vscode
+.idea
+.DS_Store
+*.map
+
+# Docs / repo only
+README.md
+CHANGELOG.md
+*.md
+
+# Local env
+.env
+.env.*

@@ -1,0 +1,147 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "image_banner": {
+      "type": "image-banner",
+      "blocks": {
+        "heading": {
+          "type": "heading",
+          "settings": {
+            "heading": "BECAUSE THE BABY AISLE WAS NEVER YOUR VIBE.",
+            "heading_size": "h0"
+          }
+        },
+        "text": {
+          "type": "text",
+          "settings": {
+            "text": "Parent-first baby essentials that are as chic as they are safe",
+            "text_style": "body"
+          }
+        },
+        "button": {
+          "type": "buttons",
+          "settings": {
+            "button_label_1": "Shop all",
+            "button_link_1": "shopify://collections/all",
+            "button_style_secondary_1": true,
+            "button_label_2": "",
+            "button_link_2": "",
+            "button_style_secondary_2": false
+          }
+        }
+      },
+      "block_order": [
+        "heading",
+        "text",
+        "button"
+      ],
+      "settings": {
+        "image_2": "shopify://shop_images/ruche-branding-photo-child-with-mum.webp",
+        "product_overlay_image": "shopify://shop_images/ruche-baby-changing-mat-bag-product-shot.webp",
+        "image_overlay_opacity": 40,
+        "image_height": "large",
+        "image_behavior": "none",
+        "desktop_content_position": "bottom-center",
+        "desktop_content_alignment": "center",
+        "show_text_box": false,
+        "color_scheme": "scheme-1",
+        "stack_images_on_mobile": false,
+        "mobile_content_alignment": "center",
+        "show_text_below": false
+      }
+    },
+    "marquee_DkMpQR": {
+      "type": "marquee",
+      "settings": {}
+    },
+    "product_showcase": {
+      "type": "product-showcase",
+      "blocks": {
+        "feature_1": {
+          "type": "feature",
+          "settings": {
+            "text": "Antibacterial"
+          }
+        },
+        "feature_2": {
+          "type": "feature",
+          "settings": {
+            "text": "Vegan"
+          }
+        },
+        "feature_3": {
+          "type": "feature",
+          "settings": {
+            "text": "Folds Compact"
+          }
+        }
+      },
+      "block_order": [
+        "feature_1",
+        "feature_2",
+        "feature_3"
+      ],
+      "settings": {
+        "heading": "A CHANGING MAT THAT FOLDS INTO A STYLISH CLUTCH",
+        "heading_size": "h1",
+        "product": "ruche-baby-change-bag",
+        "product_title": "The Ruche Mat",
+        "description": "<p>Meet the first antibacterial changing mat that looks this good. Crafted from premium silicone leather, wipes clean in seconds and keeps germs away, all while looking like it belongs in your collection not the nursery. </p>",
+        "button_label": "Shop the Mat",
+        "color_scheme": "scheme-3",
+        "padding_top": 60,
+        "padding_bottom": 60
+      }
+    },
+    "story_section": {
+      "type": "story-section",
+      "blocks": {
+        "heading": {
+          "type": "heading",
+          "settings": {
+            "heading": "OUR FOUNDER'S MOMENT",
+            "heading_size": "h1"
+          }
+        },
+        "text": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Every parent has that moment. Mine came in a chic café, surrounded by design-conscious friends, when I realized my baby bag looked like it belonged in a different life. I wanted products that matched my aesthetic, not compromised it.</p><p>So I created Ruche — where style meets function, and parents don't have to choose between the two.</p>"
+          }
+        },
+        "button": {
+          "type": "button",
+          "settings": {
+            "button_label": "Read Our Story",
+            "button_link": "",
+            "button_style_secondary": false
+          }
+        }
+      },
+      "block_order": [
+        "heading",
+        "text",
+        "button"
+      ],
+      "settings": {
+        "color_scheme": "scheme-1",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    }
+  },
+  "order": [
+    "image_banner",
+    "marquee_DkMpQR",
+    "product_showcase",
+    "story_section"
+  ]
+}

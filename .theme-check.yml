@@ -1,0 +1,12 @@
+extends: :recommended
+
+ignore:
+  - node_modules/**
+  - dist/**
+  - build/**
+  - packages/**
+
+MatchingTranslations:
+  enabled: false
+TemplateLength:
+  enabled: false

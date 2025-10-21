@@ -9,27 +9,41 @@
     "build:dev": "webpack --mode development",
     "watch": "webpack --mode development --watch",
     "deploy": "shopify theme push",
-    "pull": "shopify theme pull"
+    "pull": "shopify theme pull",
+    "theme:list": "shopify theme list",
+    "theme:dev": "shopify theme dev",
+    "theme:pull:live": "shopify theme pull --theme 136720220226",
+    "theme:pull:staging": "echo 'Update STAGING_THEME_ID in package.json first' && exit 1",
+    "theme:push:live": "shopify theme push --theme 136720220226",
+    "theme:push:staging": "echo 'Update STAGING_THEME_ID in package.json first' && exit 1",
+    "theme:push:dev": "node -e \"const { execSync } = require('child_process'); const br = execSync('git rev-parse --abbrev-ref HEAD').toString().trim(); const name = 'dev-'+br; execSync('shopify theme push --unpublished --theme \\\"'+name+'\\\"', { stdio: 'inherit' });\"",
+    "theme:check": "shopify theme check"
   },
   "dependencies": {
+    "alpinejs": "^3.13.0",
     "lazysizes": "^5.3.2",
-    "swiper": "^11.0.0",
-    "alpinejs": "^3.13.0"
+    "swiper": "^11.0.0"
   },
   "devDependencies": {
-    "webpack": "^5.88.0",
-    "webpack-cli": "^5.1.0",
+    "@babel/core": "^7.22.0",
+    "@babel/preset-env": "^7.22.0",
+    "@shopify/theme-check-node": "^3.23.0",
+    "autoprefixer": "^10.4.0",
+    "babel-loader": "^9.1.0",
+    "css-loader": "^6.8.0",
+    "cssnano": "^6.0.0",
+    "mini-css-extract-plugin": "^2.7.0",
     "postcss": "^8.4.0",
     "postcss-loader": "^7.3.0",
-    "autoprefixer": "^10.4.0",
-    "cssnano": "^6.0.0",
-    "css-loader": "^6.8.0",
-    "mini-css-extract-plugin": "^2.7.0",
-    "babel-loader": "^9.1.0",
-    "@babel/core": "^7.22.0",
-    "@babel/preset-env": "^7.22.0"
+    "webpack": "^5.88.0",
+    "webpack-cli": "^5.1.0"
   },
-  "keywords": ["shopify", "ecommerce", "ruche", "theme"],
+  "keywords": [
+    "shopify",
+    "ecommerce",
+    "ruche",
+    "theme"
+  ],
   "author": "Ruche Team",
   "license": "MIT"
 }
