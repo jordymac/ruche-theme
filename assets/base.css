@@ -215,6 +215,7 @@ body:has(.section-header .drawer-menu) .announcement-bar-section .page-width {
 
 .section {
   padding-top: 0;
+  padding-bottom: 0;
 }
 
 .section + .section {

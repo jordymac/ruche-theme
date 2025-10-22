@@ -97,7 +97,7 @@
         "product_title": "The Ruche Mat",
         "description": "<p>Meet the first antibacterial changing mat that looks this good. Crafted from premium silicone leather, wipes clean in seconds and keeps germs away, all while looking like it belongs in your collection not the nursery. </p>",
         "button_label": "Shop the Mat",
-        "color_scheme": "scheme-3",
+        "color_scheme": "scheme-2",
         "padding_top": 60,
         "padding_bottom": 60
       }
@@ -114,7 +114,7 @@
         "heading": {
           "type": "heading",
           "settings": {
-            "heading": "OUR FOUNDER'S MOMENT",
+            "heading": "THE FOUNDING MOMENT",
             "heading_size": "h1"
           }
         },
@@ -141,9 +141,36 @@
       ],
       "settings": {
         "image": "shopify://shop_images/ruche-baby-mother-holding-ruche-fold-out-mat-clutch.webp",
-        "color_scheme": "scheme-1",
+        "color_scheme": "scheme-3",
         "padding_top": 0,
         "padding_bottom": 0
+      }
+    },
+    "brand_story_rWLtAr": {
+      "type": "brand-story",
+      "name": "Brand Story",
+      "settings": {
+        "problem_subheading": "The Problem",
+        "problem_heading": "MADE FOR BABIES",
+        "problem_text": "<p>Baby products have always been designed with the baby in mind — not the parent. That means clunky prints, unhygienic fabrics, and designs that clash with your lifestyle. Public change tables? A germ trap. Traditional mats? Hard to clean, quick to stain, and anything but chic.</p>",
+        "problem_image": "shopify://shop_images/Frame7.webp",
+        "solution_subheading": "The Solution",
+        "solution_heading": "MADE FOR MUMS",
+        "solution_text": "<p>Ruche changes the game with parent-first design. Our antibacterial silicone leather mat is naturally germ-resistant, wipes clean in seconds, and folds into a clutch-style silhouette you'll actually want to carry. Safe, vegan, and gentle on sensitive skin — all in elevated tones that blend seamlessly into your wardrobe and your world.</p>",
+        "solution_image": "shopify://shop_images/Frame2.webp",
+        "heading_size": "h0",
+        "color_scheme": "",
+        "padding_top": 80,
+        "padding_bottom": 80
+      }
+    },
+    "full_image_CqbkP7": {
+      "type": "full-image",
+      "name": "Full Image",
+      "settings": {
+        "image": "shopify://shop_images/Frame10.webp",
+        "margin_top": 0,
+        "margin_bottom": 0
       }
     },
     "product_benefits_gK6pme": {
@@ -187,7 +214,7 @@
         "benefit_zattbn": {
           "type": "benefit",
           "settings": {
-            "heading": "Water-Resistant",
+            "heading": "Water Resistant",
             "text": "<p>Spill-proof surface</p>"
           }
         }
@@ -202,7 +229,7 @@
       ],
       "name": "Product Benefits",
       "settings": {
-        "heading": "Why Ruche?",
+        "heading": "THE DETAILS THAT MATTER",
         "heading_size": "h1",
         "columns_desktop": 3,
         "columns_mobile": "2",
@@ -217,6 +244,8 @@
     "marquee_DkMpQR",
     "product_showcase",
     "story_section",
+    "brand_story_rWLtAr",
+    "full_image_CqbkP7",
     "product_benefits_gK6pme"
   ]
 }

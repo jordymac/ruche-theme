@@ -19,6 +19,12 @@
 
     {%- comment -%} Problem Section {%- endcomment -%}
     <div class="brand-story__problem">
+      {%- if section.settings.problem_subheading != blank -%}
+        <p class="brand-story__subheading brand-story__subheading--problem">
+          {{ section.settings.problem_subheading }}
+        </p>
+      {%- endif -%}
+
       {%- if section.settings.problem_heading != blank -%}
         <h2 class="brand-story__heading brand-story__heading--problem {{ section.settings.heading_size }}">
           {{ section.settings.problem_heading }}
@@ -46,17 +52,33 @@
 
     {%- comment -%} Solution Section {%- endcomment -%}
     <div class="brand-story__solution">
+      {%- if section.settings.solution_image != blank -%}
+        <div class="brand-story__image-wrapper brand-story__image-wrapper--solution">
+          {{
+            section.settings.solution_image
+            | image_url: width: 1200
+            | image_tag: class: 'brand-story__image', loading: 'lazy'
+          }}
+        </div>
+      {%- endif -%}
+
       <div class="brand-story__content-wrapper brand-story__content-wrapper--solution">
-        {%- if section.settings.solution_text != blank -%}
-          <div class="brand-story__text brand-story__text--solution rte">
-            {{ section.settings.solution_text }}
-          </div>
+        {%- if section.settings.solution_subheading != blank -%}
+          <p class="brand-story__subheading brand-story__subheading--solution">
+            {{ section.settings.solution_subheading }}
+          </p>
         {%- endif -%}
 
         {%- if section.settings.solution_heading != blank -%}
           <h2 class="brand-story__heading brand-story__heading--solution {{ section.settings.heading_size }}">
             {{ section.settings.solution_heading }}
           </h2>
+        {%- endif -%}
+
+        {%- if section.settings.solution_text != blank -%}
+          <div class="brand-story__text brand-story__text--solution rte">
+            {{ section.settings.solution_text }}
+          </div>
         {%- endif -%}
       </div>
     </div>
@@ -75,6 +97,12 @@
     {
       "type": "header",
       "content": "Problem Section"
+    },
+    {
+      "type": "text",
+      "id": "problem_subheading",
+      "label": "Problem subheading (This Reality font)",
+      "default": "The Problem"
     },
     {
       "type": "text",
@@ -99,6 +127,12 @@
     },
     {
       "type": "text",
+      "id": "solution_subheading",
+      "label": "Solution subheading (This Reality font)",
+      "default": "The Solution"
+    },
+    {
+      "type": "text",
       "id": "solution_heading",
       "label": "Solution heading",
       "default": "OUR SOLUTION"
@@ -108,6 +142,11 @@
       "id": "solution_text",
       "label": "Solution text",
       "default": "<p>Ruche changes the game with parent-first design. Our antibacterial silicone leather mat is naturally germ-resistant, wipes clean in seconds, and folds into a clutch-style silhouette you'll actually want to carry. Safe, vegan, and gentle on sensitive skin — all in elevated tones that blend seamlessly into your wardrobe and your world.</p>"
+    },
+    {
+      "type": "image_picker",
+      "id": "solution_image",
+      "label": "Solution image"
     },
     {
       "type": "header",
@@ -138,7 +177,7 @@
           "label": "XX-Large"
         }
       ],
-      "default": "hxxl",
+      "default": "h0",
       "label": "Heading size"
     },
     {

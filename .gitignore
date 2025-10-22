@@ -27,10 +27,11 @@ yarn-error.log*
 .env.test.local
 .env.production.local
 
-# Editors/IDEs
-.vscode/
+# Editors/IDEs (keep .vscode for shared settings)
+# .vscode/
 .idea/
 *.swp
+.claude/
 
 # Tool caches
 .eslintcache
@@ -44,6 +45,5 @@ yarn-error.log*
 # Shopify – store-specific settings not versioned
 config/settings_data.json
 
-# Large branding assets
-Ruche\ Branding/01_Brand\ Guidelines/*.pdf
-Ruche\ Branding/Ruche*.pdf
+# Large branding assets - exclude from Git
+Ruche\ Branding/

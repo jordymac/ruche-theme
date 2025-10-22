@@ -1,225 +1,80 @@
 # Ruche Shopify Project
 
+> **⚠️ IMPORTANT**: All theme development happens in the [`ruche-theme/`](ruche-theme/) directory.
+
 High-performance e-commerce store for Ruche - premium designer baby products.
 
-## Quick Links
-- [Theme Files (ruche-theme/)](ruche-theme/) - All Shopify theme development
-- [Project Instructions (claude.md)](claude.md) - Complete project context
-- [Activity Log (docs/activity.md)](docs/activity.md) - Development history
-- [Brand Assets (Ruche Branding/)](Ruche%20Branding/) - Logos, fonts, images
+## Quick Start
 
-## Project Overview
+```bash
+cd ruche-theme
+npm install
+shopify theme dev
+```
+
+## Project Structure
+
+```
+ruche-shopify/              # Project root (meta only)
+├── ruche-theme/            # 👈 ALL DEVELOPMENT HAPPENS HERE
+│   ├── assets/             # CSS, JS, images
+│   ├── sections/           # Shopify sections
+│   ├── snippets/           # Reusable components
+│   ├── templates/          # Page templates
+│   ├── config/             # Theme settings
+│   ├── layout/             # Theme layouts
+│   ├── locales/            # Translations
+│   ├── docs/               # Activity logs
+│   ├── Ruche Branding/     # Brand assets
+│   ├── claude.md           # Project instructions
+│   ├── ruche-rules.md      # Brand voice guidelines
+│   └── package.json        # Build tools & scripts
+├── README.md               # This file
+├── LICENSE.md              # MIT License
+└── .gitignore              # Git ignore rules
+```
+
+## For Developers
+
+**Working directory**: Always `cd ruche-theme/` before starting work
+
+**Key commands** (run from `ruche-theme/`):
+```bash
+npm run theme:dev           # Local development server
+npm run theme:push:live     # Deploy to live theme (#136720220226)
+npm run theme:push:dev      # Create/update dev theme
+npm run theme:check         # Run theme linter
+```
+
+**Documentation**:
+- [Project Instructions](ruche-theme/claude.md) - Complete project context
+- [Activity Log](ruche-theme/docs/activity.md) - Development history
+- [Brand Guidelines](ruche-theme/ruche-rules.md) - Brand voice & tone
+
+## Tech Stack
+- **Platform**: Shopify Basic (annual subscription)
+- **Email/SMS**: Klaviyo
+- **Analytics**: Microsoft Clarity
+- **Theme Base**: Custom Dawn-based theme
+- **Build Tools**: Webpack, PostCSS, Babel
+
+## Brand Overview
 **Product**: Premium silicone leather change mats & baby accessories
 **SKUs**: 10-15 products
-**Market**: Australian parents seeking high-end, design-forward baby products
+**Market**: Australian parents seeking design-forward baby products
 
-**Tech Stack**:
-- Shopify Basic (annual)
-- Klaviyo (email/SMS automation)
-- Microsoft Clarity (analytics)
-- Custom Dawn-based theme
-
-## Getting Started
-
-### Theme Development
-All theme work is in the `ruche-theme/` directory. See [ruche-theme/README.md](ruche-theme/README.md) for workflow details.
-
-**Quick commands** (from `ruche-theme/` directory):
-```bash
-npm run theme:dev          # Local preview
-npm run theme:check        # Lint theme
-npm run theme:list         # List all themes
-npm run theme:push:live    # Push to live theme
-npm run theme:push:dev     # Push to dev theme
-```
-
-### Branch Strategy
-- `main` → Live theme (#136720220226)
-- `staging` → Staging theme (TBD - create when ready)
-- `feature/*` → Auto-creates dev themes
-
-### Project Structure
-```
-ruche-shopify/
-├── ruche-theme/         # Shopify theme (all dev work here)
-├── docs/                # Activity logs & documentation
-├── Ruche Branding/      # Brand assets
-├── claude.md            # Project instructions
-└── README.md            # This file
-```
-
-## Brand Guidelines
-**Colors**: #3D3935 (black), #545859 (grey), #F3F3F3 (off-white)
+**Colors**: `#3D3935` (black), `#545859` (grey), `#F3F3F3` (off-white)
 **Fonts**: Arpona (headlines), Neue Haas Grotesk (body), This Reality (script)
 **Aesthetic**: Editorial, collage elements, layered paper textures
 
 ## Performance Goals
-- Lighthouse Score: 90+
-- Mobile Score: 85+
-- Page Load: < 2 seconds
-
----
-
-## Dawn Theme Base
-
-This project is built on Shopify's Dawn theme. Dawn represents a HTML-first, JavaScript-only-as-needed approach to theme development.
-
-* **Web-native in its purest form:** Themes run on the [evergreen web](https://www.w3.org/2001/tag/doc/evergreen-web/)
-* **Lean, fast, and reliable:** Functionality and design defaults to "no" until it meets this requirement
-* **Server-rendered:** HTML must be rendered by Shopify servers using Liquid
-* **Functional, not pixel-perfect:** Using semantic markup, progressive enhancement, and clever design
-
-You can find a more detailed version of our theme code principles in the [contribution guide](https://github.com/Shopify/dawn/blob/main/.github/CONTRIBUTING.md#theme-code-principles).
-
-## Getting started
-We recommend using Dawn as a starting point for theme development. [Learn more on Shopify.dev](https://shopify.dev/themes/getting-started/create).
-
-> If you're building a theme for the Shopify Theme Store, then you can use Dawn as a starting point. However, the theme that you submit needs to be [substantively different from Dawn](https://shopify.dev/themes/store/requirements#uniqueness) so that it provides added value for merchants. Learn about the [ways that you can use Dawn](https://shopify.dev/themes/tools/dawn#ways-to-use-dawn).
-
-Please note that the main branch may include code for features not yet released. The "stable" version of Dawn is available in the theme store.
-
-## Staying up to date with Dawn changes
-
-Say you're building a new theme off Dawn but you still want to be able to pull in the latest changes, you can add a remote `upstream` pointing to this Dawn repository.
-
-1. Navigate to your local theme folder.
-2. Verify the list of remotes and validate that you have both an `origin` and `upstream`:
-```sh
-git remote -v
-```
-3. If you don't see an `upstream`, you can add one that points to Shopify's Dawn repository:
-```sh
-git remote add upstream https://github.com/Shopify/dawn.git
-```
-4. Pull in the latest Dawn changes into your repository:
-```sh
-git fetch upstream
-git pull upstream main
-```
-
-## Developer tools
-
-There are a number of really useful tools that the Shopify Themes team uses during development. Dawn is already set up to work with these tools.
-
-### Shopify CLI
-
-[Shopify CLI](https://github.com/Shopify/shopify-cli) helps you build Shopify themes faster and is used to automate and enhance your local development workflow. It comes bundled with a suite of commands for developing Shopify themes—everything from working with themes on a Shopify store (e.g. creating, publishing, deleting themes) or launching a development server for local theme development.
-
-You can follow this [quick start guide for theme developers](https://shopify.dev/docs/themes/tools/cli) to get started.
-
-### Theme Check
-
-We recommend using [Theme Check](https://github.com/shopify/theme-check) as a way to validate and lint your Shopify themes.
-
-We've added Theme Check to Dawn's [list of VS Code extensions](/.vscode/extensions.json) so if you're using Visual Studio Code as your code editor of choice, you'll be prompted to install the [Theme Check VS Code](https://marketplace.visualstudio.com/items?itemName=Shopify.theme-check-vscode) extension upon opening VS Code after you've forked and cloned Dawn.
-
-You can also run it from a terminal with the following Shopify CLI command:
-
-```bash
-shopify theme check
-```
-
-### Continuous Integration
-
-Dawn uses [GitHub Actions](https://github.com/features/actions) to maintain the quality of the theme. [This is a starting point](https://github.com/Shopify/dawn/blob/main/.github/workflows/ci.yml) and what we suggest to use in order to ensure you're building better themes. Feel free to build off of it!
-
-#### Shopify/lighthouse-ci-action
-
-We love fast websites! Which is why we created [Shopify/lighthouse-ci-action](https://github.com/Shopify/lighthouse-ci-action). This runs a series of [Google Lighthouse](https://developers.google.com/web/tools/lighthouse) audits for the home, product and collections pages on a store to ensure code that gets added doesn't degrade storefront performance over time.
-
-#### Shopify/theme-check-action
-
-Dawn runs [Theme Check](#Theme-Check) on every commit via [Shopify/theme-check-action](https://github.com/Shopify/theme-check-action).
-
-## Contributing
-
-Want to make commerce better for everyone by contributing to Dawn? We'd love your help! Please read our [contributing guide](https://github.com/Shopify/dawn/blob/main/.github/CONTRIBUTING.md) to learn about our development process, how to propose bug fixes and improvements, and how to build for Dawn.
-
-## Code of conduct
-
-All developers who wish to contribute through code or issues, please first read our [Code of Conduct](https://github.com/Shopify/dawn/blob/main/.github/CODE_OF_CONDUCT.md).
-
-## Theme Store submission
-
-The [Shopify Theme Store](https://themes.shopify.com/) is the place where Shopify merchants find the themes that they'll use to showcase and support their business. As a theme partner, you can create themes for the Shopify Theme Store and reach an international audience of an ever-growing number of entrepreneurs.
-
-Ensure that you follow the list of [theme store requirements](https://shopify.dev/themes/store/requirements) if you're interested in becoming a [Shopify Theme Partner](https://themes.shopify.com/services/themes/guidelines) and building themes for the Shopify platform.
+- Lighthouse Score: **90+**
+- Mobile Score: **85+**
+- Page Load: **< 2 seconds**
 
 ## License
-
-Copyright (c) 2021-present Shopify Inc. See [LICENSE](/LICENSE.md) for further details.
+MIT License - See [LICENSE.md](LICENSE.md)
 
 ---
 
-# Ruche Theme
-
-Custom Shopify theme for Ruche - premium designer baby products.
-
-## Theme Workflow
-
-**Branches → Themes**
-- `main` → Live theme (ID: 136720220226)
-- `staging` → Staging theme (ID: TBD - duplicate ruche when ready for production)
-- `feature/*` → Unpublished dev theme (named `dev-<branch>`)
-
-> Keep `config/settings_data.json` out of Git. It's store content.
-
-### Daily Flow
-
-1. **Sync from store (clean tree only):**
-   ```bash
-   git status
-   # commit or stash first
-   shopify theme pull --theme 136720220226
-   ```
-
-2. **Local preview (safe):**
-   ```bash
-   npm run theme:dev
-   # or: shopify theme dev
-   ```
-
-3. **Push to dev theme (feature branch):**
-   ```bash
-   npm run theme:push:dev
-   # or manually:
-   # BR=$(git rev-parse --abbrev-ref HEAD)
-   # DEV_NAME="dev-$BR"
-   # shopify theme push --unpublished --theme "$DEV_NAME"
-   ```
-
-4. **Promote to staging:**
-   ```bash
-   git checkout staging
-   git merge <feature-branch>
-   npm run theme:push:staging
-   # Note: Update STAGING_THEME_ID in package.json when ready
-   ```
-
-5. **Go live (PR → main):**
-   ```bash
-   git checkout main
-   git merge staging
-   npm run theme:push:live
-   ```
-
-### Safety Snippets
-
-**Stash before pull:**
-```bash
-git stash push -u -m "pre-pull"
-shopify theme pull --theme 136720220226
-git stash pop
-```
-
-**Revert accidental live push:**
-```bash
-git revert <bad_sha>
-shopify theme push --theme 136720220226
-```
-
-### Notes
-- Keep lockfile (package-lock.json) in Git
-- Use PRs and branch protection on main
-- Run `npm run theme:check` before committing
-- Never commit `config/settings_data.json`
+**Built with Shopify Dawn** | [Dawn Documentation](https://github.com/Shopify/dawn)

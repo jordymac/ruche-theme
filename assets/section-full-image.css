@@ -1,0 +1,28 @@
+.full-image {
+  display: block;
+  width: 100%;
+  position: relative;
+}
+
+.full-image__media {
+  width: 100%;
+  display: block;
+  overflow: hidden;
+}
+
+.full-image__img {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+}
+
+.full-image__media.placeholder {
+  background-color: rgb(var(--color-background));
+}
+
+.full-image__media.placeholder svg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
