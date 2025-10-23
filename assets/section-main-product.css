@@ -2,6 +2,11 @@ product-info {
   display: block;
 }
 
+/* Ensure header height variable exists with fallback */
+:root {
+  --header-height: 80px;
+}
+
 .product {
   margin: 0;
 }
@@ -23,7 +28,7 @@ product-info {
   .product__column-sticky {
     display: block;
     position: sticky;
-    top: var(--header-height, 0px);
+    top: var(--header-height);
     z-index: 2;
   }
 
@@ -432,6 +437,40 @@ a.product__text {
   .product--thumbnail .product__media-item:not(.is-active),
   .product--thumbnail_slider .product__media-item:not(.is-active) {
     display: none;
+  }
+
+  /* Thumbnail layout with thumbnails on left side */
+  .product--thumbnail media-gallery {
+    display: flex;
+    gap: 2rem;
+    align-items: flex-start;
+  }
+
+  .product--thumbnail .thumbnail-slider {
+    order: -1;
+    flex-shrink: 0;
+    width: 80px;
+    position: sticky;
+    top: var(--header-height);
+    align-self: flex-start;
+    max-height: calc(100vh - var(--header-height));
+    overflow-y: auto;
+  }
+
+  .product--thumbnail .thumbnail-list {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 1rem;
+    padding: 0;
+    grid-template-columns: none !important;
+  }
+
+  .product--thumbnail .thumbnail-list__item {
+    width: 100% !important;
+  }
+
+  .product--thumbnail slider-component:first-of-type {
+    flex: 1;
   }
 
   .product-media-modal__content > .product__media-item--variant.product__media-item--variant {
@@ -923,7 +962,8 @@ a.product__text {
     display: none;
   }
 
-  .thumbnail-list {
+  .product--stacked .thumbnail-list,
+  .thumbnail-slider .thumbnail-list {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
   }
@@ -944,9 +984,9 @@ a.product__text {
     grid-column: 1;
     grid-template-columns: 1fr;
     position: sticky;
-    top: var(--header-height, 0px);
+    top: var(--header-height);
     align-self: start;
-    max-height: calc(100vh - var(--header-height, 0px));
+    max-height: calc(100vh - var(--header-height));
     overflow-y: auto;
     padding: 0;
   }
@@ -954,7 +994,7 @@ a.product__text {
   .product--thumbnail_column .product__media-list {
     grid-column: 2;
     position: sticky;
-    top: var(--header-height, 0px);
+    top: var(--header-height);
     align-self: start;
   }
 
@@ -964,7 +1004,7 @@ a.product__text {
     max-width: none;
   }
 }
-}
+
 
 .thumbnail-list_item--variant:not(:first-child) {
   display: none;

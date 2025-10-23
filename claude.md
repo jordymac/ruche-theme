@@ -1,9 +1,29 @@
 ---
-title: Ruche Brand Rules (Claude Summary)
+title: Ruche
 version: 1.0
 category: System Context
-description: High-level tone and creative direction for all Ruche outputs.
----
+--- 
+
+# activity-logging
+Document all development sessions in docs/activity.md with:
+- Date/time
+- User request
+- Actions taken
+- Files modified/created
+- Decisions made
+- Next steps
+
+# important-instruction-reminders
+Do what has been asked; nothing more, nothing less.
+NEVER create files unless they're absolutely necessary for achieving your goal.
+ALWAYS prefer editing an existing file to creating a new one.
+NEVER proactively create documentation files (*.md) or README files. Only create documentation files if explicitly requested by the User.
+
+# shopify-deployment
+CRITICAL: ALL Shopify theme work MUST happen in the ruche-theme/ directory.
+
+Working directory: `cd ruche-theme/`
+Deploy command: `shopify theme push --theme 136720220226`
 
 # 🪞 Ruche — Core Voice
 
@@ -31,14 +51,6 @@ When in doubt, channel **Vogue energy meets motherhood realism** — refined, st
 
 For the full ruche-rules, reference /ruche-rules.md
 
-# important-instruction-reminders
-Do what has been asked; nothing more, nothing less.
-NEVER create files unless they're absolutely necessary for achieving your goal.
-ALWAYS prefer editing an existing file to creating a new one.
-NEVER proactively create documentation files (*.md) or README files. Only create documentation files if explicitly requested by the User.
 
-# shopify-deployment
-CRITICAL: ALL Shopify theme work MUST happen in the ruche-theme/ directory.
 
-Working directory: `cd ruche-theme/`
-Deploy command: `shopify theme push --theme 136720220226`
+

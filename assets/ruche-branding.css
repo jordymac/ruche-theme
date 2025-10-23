@@ -9,6 +9,7 @@
 :root {
   --color-ruche-black-rgb: 61, 57, 53; /* #3D3935 in RGB */
   --color-ruche-grey-rgb: 84, 88, 89; /* #545859 in RGB */
+  --header-height: 80px; /* Default header height, will be updated by JavaScript */
 }
 
 /* Note: Color schemes now work as designed in Shopify
@@ -376,11 +377,12 @@ main > .shopify-section:first-child .banner {
   .banner__product-overlay {
     position: absolute !important;
     left: 50% !important;
-    top: 50% !important;
-    transform: translate(-50%, -50%) !important;
+    top: 75% !important;
     width: 16.666% !important; /* 1/6 of total width */
     z-index: 10 !important;
     pointer-events: none !important;
+    opacity: 0;
+    animation: slideUpFadeIn 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.4s forwards;
   }
 
   .banner__product-overlay-image {
@@ -388,6 +390,17 @@ main > .shopify-section:first-child .banner {
     height: auto !important;
     display: block !important;
     filter: drop-shadow(0 10px 30px rgba(61, 57, 53, 0.15)) !important;
+  }
+
+  @keyframes slideUpFadeIn {
+    0% {
+      opacity: 0;
+      transform: translate(-50%, calc(-50% + 60px));
+    }
+    100% {
+      opacity: 1;
+      transform: translate(-50%, -50%);
+    }
   }
 }
 

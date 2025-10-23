@@ -380,3 +380,217 @@ This log tracks all development work on the Ruche Shopify project. Every action 
 10. ⏳ Footer - brand tagline update
 
 ---
+
+
+## 2025-10-23 - 10:00
+
+### Task: Redesign Product Page with Three-Column Sticky Gallery Layout
+
+**User Request**: "we need to develop a new product page, it should have a gallery, small thumbnails in a column on the left, the selected image large full height middle column, these are sticky, the final column is the product info text, it scrolls, the sticking point should be the navbar + 1 rem"
+
+**Actions Taken**:
+- Updated product page sticky positioning to use `top: calc(var(--header-height, 0px) + 1rem)` instead of `top: 0`
+- Created new three-column layout class `.product--thumbnail_column` for product pages
+- Implemented responsive grid layout: thumbnails (80-100px) | large image (1fr) | product info (300-400px)
+- Made thumbnail column sticky with vertical scrolling for many images
+- Made large image column sticky with full viewport height minus header
+- Product info column scrolls naturally
+
+**Files Modified**:
+- ruche-theme/assets/section-main-product.css (updated sticky positioning and added three-column layout)
+
+**Decisions Made**:
+- **Sticky positioning**: Uses CSS variable `--header-height` from base.css for accurate navbar offset
+- **Three-column grid**: `grid-template-columns: minmax(80px, 100px) 1fr minmax(300px, 400px)`
+- **Thumbnail column**: Sticky with max-height and overflow-y: auto for scrolling thumbnails
+- **Large image**: Sticky with full viewport height, centered using flexbox
+- **Product info**: Natural scrolling column, no max-width restriction
+- **Fallback**: Uses `var(--header-height, 0px)` to gracefully handle missing header height variable
+
+**Technical Details**:
+- Layout selector: `.product--thumbnail_column` (needs to be set in section settings)
+- Grid gap: 2rem between columns
+- Thumbnail column: Single column grid (`grid-template-columns: 1fr`)
+- Large image height: `calc(100vh - var(--header-height, 0px) - 2rem)`
+- Uses `display: contents` on `.product__media-wrapper` to expose children to parent grid
+- All sticky elements offset by navbar + 1rem as requested
+
+**To Activate This Layout**:
+In Shopify admin, users need to:
+1. Go to product page section settings
+2. Change "Desktop layout" (media_position) setting to enable this layout
+3. OR manually set the product class to include `product--thumbnail_column`
+
+**Next Steps**:
+- [ ] Test layout on live product page
+- [ ] Adjust thumbnail column width if needed (currently 80-100px)
+- [ ] Adjust product info column width if needed (currently 300-400px)
+- [ ] May need to add this as a selectable option in section schema
+
+**Remaining Homepage Sections**:
+1. ✅ Hero Section - kept as-is with marquee
+2. ✅ Product Showcase - completed
+3. ✅ Story Section - completed
+4. ⏳ Product Benefits - 6 benefit icons
+5. ⏳ Lifestyle Gallery - 3-4 lifestyle photos
+6. ⏳ Testimonials - customer quotes
+7. ⏳ Press Mentions - logo grid
+8. ⏳ Community/Instagram - UGC feed
+9. ⏳ Email Sign-Up - newsletter form
+10. ⏳ Footer - brand tagline update
+
+---
+
+## 2025-10-23 - 14:00
+
+### Task: Redesign Product Page - Thumbnails on Left Side
+
+**User Request**: "we are going to edit the Thumbnail Layout for products... 1. where it sticks, at the moment the whole thing scrolls up a little bit before sticking, i want it to stick at the bottom of the nav bar 2. move the small thumbnails from underneath to the left hand side of the main image 3. tweak screen real estate to get more balanced coverage across the desktop view"
+
+**Actions Taken**:
+1. **Initial attempt with thumbnail_column layout** - Discovered this broke the layout (images stacked in rows, thumbnails in wrong spot)
+2. **Analyzed existing structure** - Studied `product-media-gallery.liquid` snippet and `.product--thumbnail` CSS
+3. **Modified existing thumbnail layout** - Used flexbox to reposition thumbnails from below to left side
+4. **Fixed sticky positioning** - Changed from `top: calc(var(--header-height) + 1rem)` to `top: var(--header-height)` to stick at navbar bottom
+5. **Forced column layout** - Overrode grid styles with `!important` to ensure vertical thumbnail column
+6. **Adjusted thumbnail width** - Changed from 140px to 80px for better proportions
+
+**Files Modified**:
+- ruche-theme/assets/section-main-product.css (added `.product--thumbnail` flexbox layout, updated sticky positioning)
+- ruche-theme/templates/product.json (kept as `"gallery_layout": "thumbnail"`)
+
+**Decisions Made**:
+- **Abandoned `.product--thumbnail_column` approach** - HTML structure didn't support the CSS Grid three-column layout properly
+- **Work within existing `.product--thumbnail` layout** - Shopify's built-in thumbnail layout shows only active image + thumbnails
+- **Thumbnail positioning**:
+  - Width: 80px (down from 140px for better screen balance)
+  - Position: Left side using flexbox `order: -1`
+  - Layout: Vertical column using `flex-direction: column !important`
+  - Gap: 1rem between thumbnails
+  - Sticky at: `top: var(--header-height)` (no extra offset)
+- **Sticky behavior**:
+  - Thumbnails stick at navbar bottom with `top: var(--header-height, 0px)`
+  - Max height: `calc(100vh - var(--header-height, 0px))` for scrollable thumbnail column
+  - Main image gallery remains in natural flow
+
+**Technical Details**:
+```css
+.product--thumbnail media-gallery {
+  display: flex;
+  gap: 2rem;
+  align-items: flex-start;
+}
+
+.product--thumbnail .thumbnail-slider {
+  order: -1;
+  width: 80px;
+  position: sticky;
+  top: var(--header-height, 0px);
+  max-height: calc(100vh - var(--header-height, 0px));
+  overflow-y: auto;
+}
+
+.product--thumbnail .thumbnail-list {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 1rem;
+}
+```
+
+**Issues Discovered**:
+- `thumbnail_column` layout wasn't ready for production (stacked all images, weird thumbnail positioning)
+- Generic `.thumbnail-list` grid styles were overriding custom column layout
+- Sticky positioning had extra 1rem offset causing scroll-up before sticking
+- Needed `!important` overrides to force column layout over default grid
+
+**Testing & Deployment**:
+- Pushed changes to Shopify theme #136720220226
+- User confirmed thumbnails now display in vertical column on left
+- Sticky positioning issue noted: currently sticks at top of viewport instead of bottom of navbar
+
+**Next Steps**:
+- [ ] Debug sticky positioning - currently sticking at viewport top, not navbar bottom
+- [ ] Verify `--header-height` CSS variable is being set correctly
+- [ ] May need to add padding offset to account for navbar height
+
+**Remaining Homepage Sections**:
+1. ✅ Hero Section - kept as-is with marquee
+2. ✅ Product Showcase - completed
+3. ✅ Story Section - completed
+4. ⏳ Product Benefits - 6 benefit icons
+5. ⏳ Lifestyle Gallery - 3-4 lifestyle photos
+6. ⏳ Testimonials - customer quotes
+7. ⏳ Press Mentions - logo grid
+8. ⏳ Community/Instagram - UGC feed
+9. ⏳ Email Sign-Up - newsletter form
+10. ⏳ Footer - brand tagline update
+
+---
+
+
+
+## 2025-10-23 - 15:30
+
+### Task: Fix Product Page Sticky Positioning & Navbar Transparency
+
+**User Request**: "the sticky point is still top of page not bottom of navbar, what could be causing that. also navbar should turn white background from first scroll, it happens on homepage, it should just be the same"
+
+**Actions Taken**:
+1. **Debugged sticky positioning issue** - Found `--header-height` CSS variable was set to `0px`
+2. **Root cause analysis** - JavaScript was querying `.section-header` element which had `position: sticky` but no actual height
+3. **Fixed JavaScript measurement** - Updated `ruche-custom.js` to measure `.header` element (actual header content) instead of `.section-header` wrapper
+4. **Added fallback chain** - JS now tries `.header` → `.header-wrapper` → `.section-header` → fallback to 80px
+5. **Set default CSS value** - Added `--header-height: 80px` to `:root` in both `ruche-branding.css` and `section-main-product.css`
+6. **Removed CSS fallbacks** - Changed `var(--header-height, 0px)` to `var(--header-height)` to use `:root` default instead of `0px` fallback
+7. **Fixed navbar transparency** - Updated scroll behavior to add white background immediately on any scroll for all pages (not just homepage with banner)
+8. **Added 1rem padding** - Updated header height calculation to add 16px below navbar for natural spacing
+
+**Files Modified**:
+- ruche-theme/assets/ruche-custom.js (fixed header height detection and scroll behavior)
+- ruche-theme/assets/ruche-branding.css (added `--header-height: 80px` default)
+- ruche-theme/assets/section-main-product.css (added `:root` default, removed `0px` fallbacks)
+
+**Decisions Made**:
+- **CSS Variable Strategy**: Set `--header-height: 80px` in `:root` as fallback, then update dynamically with JavaScript
+- **Element to measure**: `.header` element (has actual content and height) not `.section-header` (wrapper with no height)
+- **Fallback chain**: Try multiple elements to ensure we always get a valid height
+- **Retry timing**: Call `setHeaderHeight()` at 3 points: DOMContentLoaded, +100ms, +500ms to handle async rendering
+- **Padding offset**: Add 16px (1rem) to header height for natural spacing between navbar and sticky elements
+- **Navbar behavior**: Unified across all pages - white background on any scroll, not just after hero section
+
+**Technical Details**:
+```javascript
+function setHeaderHeight() {
+  let headerHeight = 0;
+  if (headerElement && headerElement.offsetHeight > 0) {
+    headerHeight = headerElement.offsetHeight;
+  } else if (header && header.offsetHeight > 0) {
+    headerHeight = header.offsetHeight;
+  } else if (sectionHeader && sectionHeader.offsetHeight > 0) {
+    headerHeight = sectionHeader.offsetHeight;
+  } else {
+    headerHeight = 80;
+  }
+  const headerWithPadding = headerHeight + 16;
+  document.documentElement.style.setProperty('--header-height', `${headerWithPadding}px`);
+}
+```
+
+**Issues Resolved**:
+1. ✅ Sticky elements now position below navbar instead of at viewport top
+2. ✅ Header height correctly calculated (was 0px, now actual height + 16px padding)
+3. ✅ Navbar turns white on scroll for all pages (homepage and product pages)
+4. ✅ 1rem natural padding between navbar and sticky content
+
+**Testing & Verification**:
+- Console log confirmed: "Using .header element, height: [actual height]px"
+- Sticky positioning now works correctly with navbar offset + 1rem padding
+- Navbar transparency transitions consistently across all pages
+
+**Next Steps**:
+- [x] Sticky positioning fixed and working correctly
+- [x] Navbar transparency unified across all pages
+- [ ] Continue with remaining homepage sections
+
+---
+
