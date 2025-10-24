@@ -1,0 +1,10 @@
+/**
+ * Scroll Snap - DISABLED
+ * Removed due to conflicts with sticky-scroll-reveal and short sections
+ * Keeping file for potential future use
+ */
+
+/* Smooth scrolling behavior only */
+html {
+  scroll-behavior: smooth;
+}

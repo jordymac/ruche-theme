@@ -594,3 +594,317 @@ function setHeaderHeight() {
 
 ---
 
+## 2025-10-23 - 16:00
+
+### Task: Add Slide-Up Animation to Hero Product Overlay
+
+**User Request**: "lets do a github push" → "i want to animate the home page, lets start with the middle image overlay on the hero section"
+
+**Actions Taken**:
+1. **Identified overlay element** - Found `.banner__product-overlay` in `image-banner.liquid` (lines 167-177)
+2. **Discovered duplicate CSS issue** - Found conflicting styles in both `section-image-banner.css` AND `ruche-branding.css`
+3. **Root cause: `!important` flags** - `ruche-branding.css` had all styles set with `!important`, blocking any modifications
+4. **Removed transform conflict** - Removed `transform: translate(-50%, -50%) !important;` from base style to allow animation
+5. **Added slide-up animation** - Created `@keyframes slideUpFadeIn` that starts 60px below final position
+6. **Repositioned overlay** - Changed from `top: 50%` to `top: 75%` to lower it in the hero section
+7. **Cleaned up duplicate CSS** - Removed all overlay styles from `section-image-banner.css` to avoid duplication
+
+**Files Modified**:
+- ruche-theme/assets/ruche-branding.css (updated overlay positioning, added slide-up animation)
+- ruche-theme/assets/section-image-banner.css (removed duplicate overlay styles)
+
+**Decisions Made**:
+- **Single source of truth**: Keep all overlay styles in `ruche-branding.css` only
+- **Overlay position**: 75% down the hero section (was 50% centered)
+- **Animation**: Slide up 60px while fading in over 1.2s with cubic-bezier easing
+- **Delay**: 0.4s delay before animation starts
+- **Why animation works now**: Removed the static `transform !important` that was blocking keyframe transforms
+
+**Technical Details**:
+```css
+.banner__product-overlay {
+  position: absolute !important;
+  left: 50% !important;
+  top: 75% !important;
+  width: 16.666% !important;
+  z-index: 10 !important;
+  pointer-events: none !important;
+  opacity: 0;
+  animation: slideUpFadeIn 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.4s forwards;
+}
+
+@keyframes slideUpFadeIn {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, calc(-50% + 60px));
+  }
+  100% {
+    opacity: 1;
+    transform: translate(-50%, -50%);
+  }
+}
+```
+
+**Issues Resolved**:
+1. ✅ Animation wasn't working - static `transform: translate(-50%, -50%) !important;` was blocking animation
+2. ✅ Position wasn't changing - `!important` flags in `ruche-branding.css` were overriding everything
+3. ✅ Duplicate CSS - removed all overlay styles from `section-image-banner.css`
+
+**Testing & Deployment**:
+- Pushed to Shopify theme #136720220226
+- Pushed to GitHub: commit `8b692bb` "feat: add slide-up animation to hero product overlay"
+
+**Animation Behavior**:
+- Overlay starts at 75% + 60px (below final position)
+- Slides up 60px while fading from 0 to 1 opacity
+- Takes 1.2s with smooth cubic-bezier easing
+- Starts after 0.4s delay (allows hero images to load first)
+
+**Next Steps**:
+- [ ] Review animation on live site
+- [ ] Consider animating other homepage elements (heading, buttons, etc.)
+- [ ] Continue with remaining homepage sections
+
+---
+
+## 2025-10-24 - 11:00
+
+### Task: Fix Sticky Scroll Reveal Section - Entry/Exit Scroll Control
+
+**User Request**: "i have a section that reveals segments on scroll... there are multiple issues: scrolling into the first section from a different section kind of speeds past the first segment of this section, scrolling out of the section is not happening, so need to handle first & last for the animations"
+
+**Actions Taken**:
+1. **Analyzed existing implementation** - Read `sticky-scroll-reveal.js`, `sticky-scroll-reveal.liquid`, and `section-sticky-scroll-reveal.css`
+2. **Identified core issues**:
+   - Entry: Wheel control activated too early, causing immediate navigation before landing on first segment
+   - Exit: Boundary checks existed but were blocked by cooldown, preventing smooth exit
+   - IntersectionObserver was interfering with wheel control, causing segment skipping
+   - Smooth scrolling triggered wheel events during animation, causing unwanted navigation
+   - Scroll-snap CSS was preventing exit at boundaries
+3. **Fixed entry behavior**:
+   - Added `hasEntered` state flag to track when section control should activate
+   - Added 300ms grace period after entering to allow natural settling on first segment
+   - Modified IntersectionObserver to skip transition on initial entry (instant snap to first segment)
+   - Only activate wheel control when section is halfway into viewport AND grace period has passed
+4. **Fixed exit behavior**:
+   - Added `isExiting` state flag that persists until fully outside section
+   - Moved boundary exit checks BEFORE cooldown check for immediate exit response
+   - Disabled scroll-snap CSS when at boundaries by removing `.has-sticky-scroll` class
+   - Exit state prevents all wheel control until section is completely out of viewport
+5. **Fixed IntersectionObserver interference**:
+   - Added guard: `if (this.hasEntered) return;` in observer callback
+   - Observer now only activates blocks during entry phase, not during wheel control
+6. **Fixed smooth scroll interference**:
+   - Added `isProgrammaticScroll` flag to block wheel events during `scrollIntoView()` animation
+   - Flag set for 1000ms after each navigation to allow smooth scroll to complete
+   - Prevents wheel event flood during animation from triggering unwanted navigation
+7. **Added comprehensive debug logging**:
+   - Console logs for all state transitions (entry, exit, navigation, cooldown)
+   - Emoji indicators for easy visual scanning (🎯 🔄 ⏸️ ⬆️ ⬇️ 🚫 etc.)
+   - `DEBUG = true` flag for easy enable/disable (line 39)
+
+**Files Modified**:
+- ruche-theme/assets/sticky-scroll-reveal.js (refactored scroll control logic)
+
+**State Flags Added**:
+- `hasEntered` - Tracks if section control is active (set when halfway into viewport)
+- `enteredTime` - Timestamp when entered, used for 300ms grace period
+- `isProgrammaticScroll` - Blocks wheel events during smooth scroll animation
+- `isExiting` - Persistent flag that disables all control until fully outside section
+
+**Technical Details**:
+
+**Entry Flow**:
+```javascript
+// 1. Scroll into viewport
+if (!isVisible) {
+  hasEntered = false; isExiting = false; return;
+}
+
+// 2. Entry phase - allow natural scroll
+if (!hasEntered) {
+  if (rect.top <= window.innerHeight * 0.5) {
+    hasEntered = true; enteredTime = now;
+    return; // Allow one more natural scroll
+  }
+  return; // Still entering
+}
+
+// 3. Grace period - prevent immediate navigation
+if (now - enteredTime < 300) {
+  return; // Allow natural settling
+}
+
+// 4. Wheel control now active
+```
+
+**Exit Flow**:
+```javascript
+// At boundaries - set exit flag
+if (scrollingDown && currentIndex >= textBlocks.length - 1) {
+  document.documentElement.classList.remove('has-sticky-scroll');
+  isExiting = true;
+  return; // Allow scroll out
+}
+
+// While exiting - block all control
+if (isExiting) {
+  return; // Allow natural scroll
+}
+
+// Reset only when fully outside
+if (!isVisible) {
+  hasEntered = false; isExiting = false;
+}
+```
+
+**Navigation Flow**:
+```javascript
+// Set flag to block wheel events
+isProgrammaticScroll = true;
+
+// Smooth scroll to segment
+textBlocks[targetIndex].scrollIntoView({
+  behavior: 'smooth',
+  block: 'center'
+});
+
+// Clear flag after animation completes
+setTimeout(() => {
+  isProgrammaticScroll = false;
+}, 1000);
+```
+
+**Debugging**:
+Console logs available:
+- 🎯 Navigating (from/to/direction)
+- 🔄 Activating block (index, skipTransition, previousIndex)
+- ⏸️ Cooldown active
+- ⬆️ At first segment - allowing exit up
+- ⬇️ At last segment - allowing exit down
+- 🚪 Exiting section - allowing natural scroll
+- 🚫 Outside section - resetting
+- ⏭️ Entry phase - allowing natural scroll
+- ✅ Entering section - hasEntered set to true
+- ⏳ Entry grace period - allowing natural scroll
+
+**Issues Resolved**:
+1. ✅ Entry no longer skips first segment - grace period allows natural landing
+2. ✅ Exit works smoothly at both top and bottom boundaries
+3. ✅ IntersectionObserver doesn't interfere with manual navigation
+4. ✅ Smooth scroll animation doesn't trigger unwanted segment changes
+5. ✅ Scroll-snap releases at boundaries to allow free exit
+6. ✅ No more bouncing back into section after trying to exit
+
+**Testing & Verification**:
+- Tested entry from above: smooth scroll to first segment, no skip
+- Tested exit upward: immediate release, no stall
+- Tested exit downward: smooth exit from last segment
+- Tested re-entry after exit: clean reset and proper entry flow
+- All state transitions logged correctly in console
+
+**Next Steps**:
+- [x] Entry/exit behavior fixed
+- [x] Debug logging added for troubleshooting
+- [ ] Monitor for edge cases in production
+- [ ] Disable debug logging when stable (set `DEBUG = false` at line 39)
+- [ ] Continue with remaining homepage sections
+
+**Remaining Homepage Sections**:
+1. ✅ Hero Section - kept as-is with marquee
+2. ✅ Product Showcase - completed
+3. ✅ Story Section - completed
+4. ⏳ Product Benefits - 6 benefit icons
+5. ⏳ Lifestyle Gallery - 3-4 lifestyle photos
+6. ⏳ Testimonials - customer quotes
+7. ⏳ Press Mentions - logo grid
+8. ⏳ Community/Instagram - UGC feed
+9. ⏳ Email Sign-Up - newsletter form
+10. ⏳ Footer - brand tagline update
+
+---
+
+
+
+---
+
+## 2025-10-24 - [Session Time]
+
+### Task: Global Scroll Snap Implementation & Removal
+
+**User Request**: "I want to create a section by section scroll snap, so each scroll the next section lands perfectly with its top aligned to the header. It should also factor in sticky-scroll-reveal.js and not break that."
+
+**Actions Taken**:
+1. Created global scroll snap system with CSS and JavaScript
+2. Added comprehensive debugging for scroll behavior
+3. Attempted multiple approaches to prevent conflicts with sticky-scroll-reveal
+4. Ultimately removed global scroll snap due to conflicts
+
+**Files Created**:
+- `assets/scroll-snap.css` - Global scroll snap styles (later disabled)
+- `assets/scroll-snap.js` - Scroll snap monitor with DEBUG logging (kept for potential future use)
+
+**Files Modified**:
+- `layout/theme.liquid` - Added scroll-snap CSS/JS includes
+- `sections/sticky-scroll-reveal.liquid` - Added/removed IntersectionObserver for scroll snap control
+- `assets/section-sticky-scroll-reveal.css` - Removed scroll-snap-align override
+- `assets/section-marquee.css` - Removed scroll-snap-align override
+
+**Approaches Attempted**:
+1. ✅ Global `scroll-snap-type: y mandatory` on html
+2. ✅ `scroll-padding-top: var(--header-height)` for header offset
+3. ✅ `scroll-snap-align: start` on all `.shopify-section` elements
+4. ❌ `scroll-snap-align: none` on sticky-scroll-reveal section
+5. ❌ `scroll-snap-align: none` on marquee section (too small)
+6. ❌ `html.has-sticky-scroll { scroll-snap-type: none }` to disable during sticky section
+7. ❌ IntersectionObserver with `rootMargin: 200px/100%` to disable snap early
+8. ❌ 300ms delay before re-enabling snap after exiting sticky section
+
+**Issues Encountered**:
+- Global scroll snap fought with sticky-scroll-reveal's wheel hijacking
+- Entry to sticky section would skip segment 0 and jump to segment 1
+- Text would disappear during transitions
+- Marquee section would snap during sticky section entry/grace period
+- Short sections caused unpredictable snapping behavior
+- Multiple sections visible simultaneously caused snap conflicts
+- Re-enabling snap after sticky section caused aggressive jumping
+
+**Decisions Made**:
+- **Removed global scroll snap entirely** - conflicts outweighed benefits
+- **Kept scroll-snap.css with only smooth scrolling** - file preserved for future use
+- **Kept scroll-snap.js for debugging** - useful logging for scroll behavior analysis
+- **Sticky-scroll-reveal remains standalone** - its custom wheel control works perfectly in isolation
+
+**Final State**:
+- `scroll-snap.css`: Only contains `scroll-behavior: smooth`
+- `scroll-snap.js`: Monitoring tool (can be disabled by setting `DEBUG = false`)
+- `sticky-scroll-reveal.liquid`: Clean, no IntersectionObserver clutter
+- All scroll-snap-align overrides removed from section CSS files
+
+**Debugging Features Added** (scroll-snap.js):
+- 🎯 Scroll Snap Monitor initialization
+- 📏 Header height tracking with CSS variable
+- 📍 Section snap detection with dimensions
+- 🎨 Sticky scroll reveal section detection
+- ✅ Scroll settled events
+- Section height and viewport comparison
+- `isShort` flag for sections < 50vh
+
+**Rationale**:
+- Native scroll-snap-type interferes with custom JavaScript scroll control
+- Sticky-scroll-reveal requires precise wheel event handling incompatible with snap points
+- Natural scrolling provides better UX than fighting snap conflicts
+- Smooth scroll behavior sufficient for polished feel
+
+**Lessons Learned**:
+- CSS scroll-snap and JavaScript wheel hijacking don't mix well
+- IntersectionObserver timing is hard to predict for scroll control
+- Sometimes simpler is better - remove features that cause more problems than they solve
+
+**Next Steps**:
+- [x] Global scroll snap removed
+- [x] Sticky-scroll-reveal working smoothly
+- [ ] Monitor natural scroll behavior in production
+- [ ] Consider scroll-snap only for non-interactive sections in future
+- [ ] Continue with remaining homepage sections
+
