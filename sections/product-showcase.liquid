@@ -27,7 +27,7 @@
     {%- comment -%} Centered Header {%- endcomment -%}
     <div class="product-showcase__header center">
       {%- if section.settings.header_icon != blank -%}
-        <div class="product-showcase__header-icon">
+        <div class="product-showcase__header-icon scroll-trigger animate--slide-in scroll-trigger--offscreen" data-cascade style="--animation-order: 0;">
           {{
             section.settings.header_icon
             | image_url: width: 100
@@ -36,24 +36,27 @@
         </div>
       {%- endif -%}
 
-      {%- if section.settings.heading != blank -%}
-        <h2 class="product-showcase__heading {{ section.settings.heading_size }}">
-          {{ section.settings.heading }}
-        </h2>
-      {%- endif -%}
+      <div class="scroll-trigger animate--slide-in scroll-trigger--offscreen" data-cascade style="--animation-order: 1;">
+        {%- if section.settings.heading != blank -%}
+          <h2 class="product-showcase__heading {{ section.settings.heading_size }}">
+            {{ section.settings.heading }}
+          </h2>
+        {%- endif -%}
 
-      {%- if section.settings.description != blank -%}
-        <div class="product-showcase__description rte">
-          {{ section.settings.description }}
-        </div>
-      {%- endif -%}
+        {%- if section.settings.description != blank -%}
+          <div class="product-showcase__description rte">
+            {{ section.settings.description }}
+          </div>
+        {%- endif -%}
+      </div>
     </div>
 
     {%- comment -%} Full Width 4 Image Grid {%- endcomment -%}
     <div class="product-showcase__images">
       {%- unless placeholder -%}
         {%- for image in product.images limit: 4 -%}
-          <a href="{% if product %}{{ product.url }}{% else %}#{% endif %}" class="product-showcase__image-wrapper">
+          {%- assign animation_order = forloop.index | plus: 1 -%}
+          <a href="{% if product %}{{ product.url }}{% else %}#{% endif %}" class="product-showcase__image-wrapper scroll-trigger animate--slide-in scroll-trigger--offscreen" data-cascade style="--animation-order: {{ animation_order }};">
             {{
               image
               | image_url: width: 1000
@@ -67,7 +70,8 @@
         {%- endfor -%}
       {%- else -%}
         {%- for i in (1..4) -%}
-          <a href="#" class="product-showcase__image-wrapper">
+          {%- assign animation_order = i | plus: 1 -%}
+          <a href="#" class="product-showcase__image-wrapper scroll-trigger animate--slide-in scroll-trigger--offscreen" data-cascade style="--animation-order: {{ animation_order }};">
             {{ 'product-apparel-' | append: i | placeholder_svg_tag: 'placeholder-svg' }}
           </a>
         {%- endfor -%}
