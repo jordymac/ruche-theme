@@ -2,7 +2,7 @@ product-info {
   display: block;
 }
 
-/* Ensure header height variable exists with fallback */
+/* Default header height - dynamically updated by StickyHeader component */
 :root {
   --header-height: 100px;
 }

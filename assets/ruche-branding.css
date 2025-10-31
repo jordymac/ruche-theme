@@ -6,7 +6,7 @@
  */
 
 :root {
-  --header-height: 100px; /* Default header height, will be updated by JavaScript */
+  --header-height: 100px; /* Default header height, dynamically updated by StickyHeader component */
 }
 
 /* Note: Color schemes now work as designed in Shopify
