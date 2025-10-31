@@ -6,7 +6,7 @@
  */
 
 :root {
-  --header-height: 80px; /* Default header height, will be updated by JavaScript */
+  --header-height: 100px; /* Default header height, will be updated by JavaScript */
 }
 
 /* Note: Color schemes now work as designed in Shopify

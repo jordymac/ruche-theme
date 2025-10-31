@@ -23,7 +23,10 @@ document.addEventListener('DOMContentLoaded', function() {
     } else if (sectionHeader && sectionHeader.offsetHeight > 0) {
       headerHeight = sectionHeader.offsetHeight;
       console.log('Using .section-header element, height:', headerHeight + 'px');
-    } else {
+    }
+
+    // If no header height was found, use default 80px
+    if (headerHeight === 0) {
       console.log('No header element found with height, using default 80px');
       headerHeight = 80;
     }

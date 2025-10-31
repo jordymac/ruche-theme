@@ -4,7 +4,7 @@ product-info {
 
 /* Ensure header height variable exists with fallback */
 :root {
-  --header-height: 80px;
+  --header-height: 100px;
 }
 
 .product {
