@@ -12,6 +12,7 @@
 
 .accordion .summary__title + .icon-caret {
   height: calc(var(--font-heading-scale) * 0.6rem);
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .accordion + .accordion {
@@ -47,10 +48,49 @@
 }
 
 .accordion__content {
-  margin-bottom: 1.5rem;
+  margin-bottom: 0;
   word-break: break-word;
-  overflow-x: auto;
+  overflow: hidden;
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.accordion__content > * {
+  min-height: 0;
+  opacity: 0;
+  transform: translateY(-0.5rem);
+  transition: opacity 0.2s ease,
+              transform 0.2s ease;
   padding: 0 0.6rem;
+}
+
+.accordion details[open] .accordion__content {
+  grid-template-rows: 1fr;
+  margin-bottom: 1.5rem;
+  transition: grid-template-rows 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+              margin-bottom 0.3s ease;
+}
+
+.accordion details[open] .accordion__content > * {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.4s ease 0.15s,
+              transform 0.4s ease 0.15s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .accordion__content,
+  .accordion details[open] .accordion__content {
+    transition: none;
+  }
+
+  .accordion__content > *,
+  .accordion details[open] .accordion__content > * {
+    transition: none;
+    opacity: 1;
+    transform: none;
+  }
 }
 
 .accordion__content img {

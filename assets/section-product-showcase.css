@@ -48,11 +48,6 @@
   aspect-ratio: 1 / 1.25;
   display: block;
   text-decoration: none;
-  transition: opacity 0.2s ease;
-}
-
-.product-showcase__image-wrapper:hover {
-  opacity: 0.9;
 }
 
 .product-showcase__image {
@@ -60,6 +55,25 @@
   height: 100%;
   object-fit: cover;
   display: block;
+  transition: transform 0.4s ease, opacity 0.3s ease;
+}
+
+/* Video element - hidden by default, positioned over image */
+.product-showcase__video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  pointer-events: none;
+}
+
+/* Preview image - faster transition for smooth crossfade */
+.product-showcase__image-wrapper.has-video .product-showcase__preview-image {
+  transition: opacity 0.2s ease 0.1s;
 }
 
 /* Tablet and up */
@@ -86,5 +100,23 @@
 
   .product-showcase__images {
     gap: 2rem;
+  }
+
+  /* Hover effects - desktop only */
+
+  /* Video playing: crossfade from preview to video */
+  .product-showcase__image-wrapper.has-video.video-playing .product-showcase__preview-image {
+    opacity: 0;
+    transition: opacity 0.2s ease 0.1s; /* Fade out after video starts fading in */
+  }
+
+  .product-showcase__image-wrapper.has-video.video-playing .product-showcase__video {
+    opacity: 1;
+    transition: opacity 0.2s ease; /* Fade in immediately */
+  }
+
+  /* Image-only fallback: zoom effect */
+  .product-showcase__image-wrapper.has-image-only:hover .product-showcase__image {
+    transform: scale(1.1);
   }
 }

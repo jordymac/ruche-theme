@@ -213,11 +213,7 @@ section {
   h3, .h3 { font-size: 2rem; }
 }
 
-/* Hide announcement bar */
-.announcement-bar-section,
-.shopify-section-group-header-group .announcement-bar-section {
-  display: none !important;
-}
+/* Announcement bar visible - can be toggled on/off in Shopify admin */
 
 /* Hero Section - Two Column Layout */
 /* Eliminate ALL spacing at top of page for hero */

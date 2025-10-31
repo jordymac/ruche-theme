@@ -1,4 +1,5 @@
 {{ 'section-product-showcase.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'product-showcase-video.js' | asset_url }}" defer="defer"></script>
 
 {%- style -%}
   .section-{{ section.id }}-padding {
@@ -51,27 +52,68 @@
       </div>
     </div>
 
-    {%- comment -%} Full Width 4 Image Grid {%- endcomment -%}
+    {%- comment -%} Full Width 4 Image Grid with Video Support {%- endcomment -%}
     <div class="product-showcase__images">
       {%- unless placeholder -%}
-        {%- for image in product.images limit: 4 -%}
-          {%- assign animation_order = forloop.index | plus: 1 -%}
-          <a href="{% if product %}{{ product.url }}{% else %}#{% endif %}" class="product-showcase__image-wrapper scroll-trigger animate--slide-in scroll-trigger--offscreen" data-cascade style="--animation-order: {{ animation_order }};">
-            {{
-              image
-              | image_url: width: 1000
-              | image_tag:
-                loading: 'lazy',
-                class: 'product-showcase__image',
-                widths: '375, 550, 750, 1000',
-                sizes: '(min-width: 990px) 25vw, (min-width: 750px) 50vw, 100vw'
-            }}
-          </a>
+        {%- comment -%} Use blocks to select specific media items {%- endcomment -%}
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'media_item' -%}
+            {%- assign animation_order = forloop.index | plus: 1 -%}
+            {%- assign media_index = block.settings.media_index | minus: 1 -%}
+            {%- assign media = product.media[media_index] -%}
+
+            {%- if media -%}
+              {%- liquid
+                assign is_video = false
+                if media.media_type == 'video' or media.media_type == 'external_video'
+                  assign is_video = true
+                endif
+              -%}
+
+              <a
+                href="{% if product %}{{ product.url }}{% else %}#{% endif %}"
+                class="product-showcase__image-wrapper {% if is_video %}has-video{% else %}has-image-only{% endif %} scroll-trigger animate--slide-in scroll-trigger--offscreen"
+                data-cascade
+                style="--animation-order: {{ animation_order }};"
+                {{ block.shopify_attributes }}
+              >
+                {%- if is_video -%}
+                  {%- comment -%} Video media: show preview image + hidden video element {%- endcomment -%}
+                  {{
+                    media.preview_image
+                    | image_url: width: 1000
+                    | image_tag:
+                      loading: 'lazy',
+                      class: 'product-showcase__image product-showcase__preview-image',
+                      widths: '375, 550, 750, 1000',
+                      sizes: '(min-width: 990px) 25vw, (min-width: 750px) 50vw, 100vw'
+                  }}
+
+                  {%- if media.media_type == 'video' -%}
+                    {%- comment -%} Use Shopify's media_tag for proper video format handling {%- endcomment -%}
+                    {{ media | media_tag: class: 'product-showcase__video', autoplay: false, loop: true, muted: true, controls: false, preload: 'none' }}
+                  {%- endif -%}
+                {%- else -%}
+                  {%- comment -%} Image media: show with fallback zoom effect {%- endcomment -%}
+                  {{
+                    media
+                    | image_url: width: 1000
+                    | image_tag:
+                      loading: 'lazy',
+                      class: 'product-showcase__image',
+                      widths: '375, 550, 750, 1000',
+                      sizes: '(min-width: 990px) 25vw, (min-width: 750px) 50vw, 100vw'
+                  }}
+                {%- endif -%}
+              </a>
+            {%- endif -%}
+          {%- endif -%}
         {%- endfor -%}
       {%- else -%}
+        {%- comment -%} Placeholder for theme editor {%- endcomment -%}
         {%- for i in (1..4) -%}
           {%- assign animation_order = i | plus: 1 -%}
-          <a href="#" class="product-showcase__image-wrapper scroll-trigger animate--slide-in scroll-trigger--offscreen" data-cascade style="--animation-order: {{ animation_order }};">
+          <a href="#" class="product-showcase__image-wrapper has-image-only scroll-trigger animate--slide-in scroll-trigger--offscreen" data-cascade style="--animation-order: {{ animation_order }};">
             {{ 'product-apparel-' | append: i | placeholder_svg_tag: 'placeholder-svg' }}
           </a>
         {%- endfor -%}
@@ -170,6 +212,23 @@
   ],
   "blocks": [
     {
+      "type": "media_item",
+      "name": "Media Item",
+      "limit": 4,
+      "settings": [
+        {
+          "type": "range",
+          "id": "media_index",
+          "min": 1,
+          "max": 20,
+          "step": 1,
+          "label": "Media position",
+          "info": "Select which media item from the product (1 = first image/video, 2 = second, etc.)",
+          "default": 1
+        }
+      ]
+    },
+    {
       "type": "feature",
       "name": "Feature Icon",
       "settings": [
@@ -192,13 +251,28 @@
       "name": "Product Showcase",
       "blocks": [
         {
-          "type": "feature"
+          "type": "media_item",
+          "settings": {
+            "media_index": 1
+          }
         },
         {
-          "type": "feature"
+          "type": "media_item",
+          "settings": {
+            "media_index": 2
+          }
         },
         {
-          "type": "feature"
+          "type": "media_item",
+          "settings": {
+            "media_index": 3
+          }
+        },
+        {
+          "type": "media_item",
+          "settings": {
+            "media_index": 4
+          }
         }
       ]
     }

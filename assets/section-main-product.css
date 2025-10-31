@@ -472,6 +472,9 @@ a.product__text {
 
   .product--thumbnail slider-component:first-of-type {
     flex: 1;
+    position: sticky;
+    top: var(--header-height);
+    align-self: flex-start;
   }
 
   .product-media-modal__content > .product__media-item--variant.product__media-item--variant {

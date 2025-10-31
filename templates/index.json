@@ -62,44 +62,52 @@
       "type": "marquee",
       "settings": {}
     },
-    "product_showcase": {
+    "product_showcase_7VjpjP": {
       "type": "product-showcase",
       "blocks": {
-        "feature_1": {
-          "type": "feature",
+        "media_item_e8ezMH": {
+          "type": "media_item",
           "settings": {
-            "text": "Antibacterial"
+            "media_index": 7
           }
         },
-        "feature_2": {
-          "type": "feature",
+        "media_item_wD8GV7": {
+          "type": "media_item",
           "settings": {
-            "text": "Vegan"
+            "media_index": 6
           }
         },
-        "feature_3": {
-          "type": "feature",
+        "media_item_EGVJ9m": {
+          "type": "media_item",
           "settings": {
-            "text": "Folds Compact"
+            "media_index": 8
+          }
+        },
+        "media_item_TEHjz7": {
+          "type": "media_item",
+          "settings": {
+            "media_index": 5
           }
         }
       },
       "block_order": [
-        "feature_1",
-        "feature_2",
-        "feature_3"
+        "media_item_e8ezMH",
+        "media_item_wD8GV7",
+        "media_item_EGVJ9m",
+        "media_item_TEHjz7"
       ],
+      "name": "Product Showcase",
       "settings": {
         "header_icon": "shopify://shop_images/Ruche-BrandmarkColourway1_5.svg",
         "heading": "A CHANGING MAT THAT FOLDS INTO A STYLISH CLUTCH",
         "heading_size": "h1",
         "product": "ruche-baby-change-bag",
-        "product_title": "The Ruche Mat",
-        "description": "<p>Meet the first antibacterial changing mat that looks this good. Crafted from premium silicone leather, wipes clean in seconds and keeps germs away, all while looking like it belongs in your collection not the nursery. </p>",
+        "product_title": "",
+        "description": "<p>A CHANGING MAT THAT FOLDS INTO A STYLISH CLUTCH</p>",
         "button_label": "Shop the Mat",
-        "color_scheme": "scheme-2",
-        "padding_top": 60,
-        "padding_bottom": 60
+        "color_scheme": "",
+        "padding_top": 36,
+        "padding_bottom": 36
       }
     },
     "story_section": {
@@ -238,76 +246,6 @@
         "margin_bottom": 0
       }
     },
-    "featured_product_EeMrB4": {
-      "type": "featured-product",
-      "blocks": {
-        "text_NpgUbR": {
-          "type": "text",
-          "settings": {
-            "text": "{{ section.settings.product.vendor }}",
-            "text_style": "uppercase"
-          }
-        },
-        "title_HXmghN": {
-          "type": "title",
-          "settings": {
-            "heading_size": "h1"
-          }
-        },
-        "price_f7NneT": {
-          "type": "price",
-          "settings": {}
-        },
-        "variant_picker_WQ9mPx": {
-          "type": "variant_picker",
-          "settings": {
-            "picker_type": "button",
-            "swatch_shape": "circle"
-          }
-        },
-        "quantity_selector_cMCYgJ": {
-          "type": "quantity_selector",
-          "settings": {}
-        },
-        "buy_buttons_YLjYmN": {
-          "type": "buy_buttons",
-          "settings": {
-            "show_dynamic_checkout": true,
-            "show_gift_card_recipient": true
-          }
-        },
-        "share_UBpky8": {
-          "type": "share",
-          "settings": {
-            "share_label": "Share"
-          }
-        }
-      },
-      "block_order": [
-        "text_NpgUbR",
-        "title_HXmghN",
-        "price_f7NneT",
-        "variant_picker_WQ9mPx",
-        "quantity_selector_cMCYgJ",
-        "buy_buttons_YLjYmN",
-        "share_UBpky8"
-      ],
-      "name": "t:sections.featured-product.presets.name",
-      "settings": {
-        "product": "ruche-baby-change-bag",
-        "color_scheme": "scheme-3",
-        "secondary_background": false,
-        "media_size": "medium",
-        "constrain_to_viewport": true,
-        "media_fit": "contain",
-        "media_position": "left",
-        "image_zoom": "lightbox",
-        "hide_variants": false,
-        "enable_video_looping": false,
-        "padding_top": 36,
-        "padding_bottom": 36
-      }
-    },
     "collapsible_content_ptQVPF": {
       "type": "collapsible-content",
       "blocks": {
@@ -316,7 +254,9 @@
           "source": "{{ metaobjects.frequently_asked_questions[\"do-you-ship-internationally\"] }}",
           "settings": {
             "heading": "{{ metaobjects.frequently_asked_questions[\"do-you-ship-internationally\"].questions.value }}",
-            "row_content": "<p>{{ metaobjects.frequently_asked_questions[\"do-you-ship-internationally\"].answer | metafield_tag }}</p>"
+            "icon": "check_mark",
+            "row_content": "<p>{{ metaobjects.frequently_asked_questions[\"do-you-ship-internationally\"].answer | metafield_tag }}</p>",
+            "page": ""
           }
         },
         "collapsible_row_6acPha": {
@@ -324,7 +264,9 @@
           "source": "{{ metaobjects.frequently_asked_questions[\"can-i-use-it-from-birth\"] }}",
           "settings": {
             "heading": "{{ metaobjects.frequently_asked_questions[\"can-i-use-it-from-birth\"].questions.value }}",
-            "row_content": "<p>{{ metaobjects.frequently_asked_questions[\"can-i-use-it-from-birth\"].answer | metafield_tag }}</p>"
+            "icon": "check_mark",
+            "row_content": "<p>{{ metaobjects.frequently_asked_questions[\"can-i-use-it-from-birth\"].answer | metafield_tag }}</p>",
+            "page": ""
           }
         },
         "collapsible_row_xTi4TP": {
@@ -332,7 +274,9 @@
           "source": "{{ metaobjects.frequently_asked_questions[\"will-it-fit-my-pram\"] }}",
           "settings": {
             "heading": "{{ metaobjects.frequently_asked_questions[\"will-it-fit-my-pram\"].questions.value }}",
-            "row_content": "<p>{{ metaobjects.frequently_asked_questions[\"will-it-fit-my-pram\"].answer | metafield_tag }}</p>"
+            "icon": "check_mark",
+            "row_content": "<p>{{ metaobjects.frequently_asked_questions[\"will-it-fit-my-pram\"].answer | metafield_tag }}</p>",
+            "page": ""
           }
         },
         "collapsible_row_TJX3D3": {
@@ -340,7 +284,9 @@
           "source": "{{ metaobjects.frequently_asked_questions[\"how-does-the-antibacterial-technology-work\"] }}",
           "settings": {
             "heading": "{{ metaobjects.frequently_asked_questions[\"how-does-the-antibacterial-technology-work\"].questions.value }}",
-            "row_content": "{{ metaobjects.frequently_asked_questions[\"how-does-the-antibacterial-technology-work\"].answer | metafield_tag }}"
+            "icon": "check_mark",
+            "row_content": "{{ metaobjects.frequently_asked_questions[\"how-does-the-antibacterial-technology-work\"].answer | metafield_tag }}",
+            "page": ""
           }
         }
       },
@@ -370,12 +316,11 @@
   "order": [
     "image_banner",
     "marquee_DkMpQR",
-    "product_showcase",
+    "product_showcase_7VjpjP",
     "story_section",
     "brand_story_rWLtAr",
     "product_benefits_gK6pme",
     "full_image_CqbkP7",
-    "featured_product_EeMrB4",
     "collapsible_content_ptQVPF"
   ]
 }
