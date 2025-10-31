@@ -11,15 +11,6 @@
 
   if (!loadingScreen) return;
 
-  // Check if loading screen has already been shown this session
-  const hasShownLoadingScreen = sessionStorage.getItem('ruche-loading-screen-shown');
-
-  if (hasShownLoadingScreen) {
-    // Already shown this session - hide immediately
-    loadingScreen.remove();
-    return;
-  }
-
   // Mark as shown for this session
   sessionStorage.setItem('ruche-loading-screen-shown', 'true');
 

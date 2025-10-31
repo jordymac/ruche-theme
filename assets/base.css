@@ -3356,12 +3356,12 @@ details-disclosure > details {
     }
   }
 
-  .scroll-trigger.animate--fade-in,
-  .scroll-trigger.animate--slide-in {
+  .scroll-trigger.scroll-trigger--offscreen.animate--fade-in,
+  .scroll-trigger.scroll-trigger--offscreen.animate--slide-in {
     opacity: 0.01;
   }
 
-  .scroll-trigger.animate--slide-in {
+  .scroll-trigger.scroll-trigger--offscreen.animate--slide-in {
     transform: translateY(2rem);
   }
 

@@ -323,6 +323,12 @@
 
   <body class="gradient{% if settings.animations_hover_elements != 'none' %} animate--hover-{{ settings.animations_hover_elements }}{% endif %} template-{{ template.name }}">
     {%- comment -%} Loading screen - first visual element {%- endcomment -%}
+    <script>
+      // Check immediately if loading screen should be shown (must run before rendering)
+      if (sessionStorage.getItem('ruche-loading-screen-shown')) {
+        document.write('<style>#loading-screen { display: none !important; }</style>');
+      }
+    </script>
     <div id="loading-screen" class="loading-screen">
       <img
         src="{{ 'Ruche-BrandmarkWhite_5.svg' | asset_url }}"
@@ -331,10 +337,6 @@
         width="120"
         height="120">
     </div>
-
-    <a class="skip-to-content-link button visually-hidden" href="#MainContent">
-      {{ 'accessibility.skip_to_text' | t }}
-    </a>
 
     {%- if settings.cart_type == 'drawer' -%}
       {%- render 'cart-drawer' -%}
