@@ -5,7 +5,7 @@
 
     {% if section.settings.heading != blank %}
       <div class="product-benefits__header center">
-        <h2 class="product-benefits__heading {{ section.settings.heading_size }}">
+        <h2 class="product-benefits__heading {{ section.settings.heading_size }} scroll-trigger animate--slide-in" data-cascade style="--animation-order: 1;">
           {{ section.settings.heading }}
         </h2>
       </div>
@@ -14,7 +14,7 @@
     {% if section.blocks.size > 0 %}
       <div class="product-benefits__grid grid grid--{{ section.settings.columns_desktop }}-col-desktop grid--{{ section.settings.columns_mobile }}-col-tablet-down">
         {% for block in section.blocks %}
-          <div class="product-benefits__item" {{ block.shopify_attributes }}>
+          <div class="product-benefits__item scroll-trigger animate--slide-in" data-cascade style="--animation-order: {{ forloop.index | plus: 1 }};" {{ block.shopify_attributes }}>
             {% if block.settings.image != blank %}
               <div class="product-benefits__icon">
                 {{ block.settings.image | image_url: width: 200 | image_tag: loading: 'lazy', width: block.settings.image.width, height: block.settings.image.height, alt: block.settings.image.alt | escape }}

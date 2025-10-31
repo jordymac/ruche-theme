@@ -38,8 +38,8 @@ class StickyScrollReveal {
 
   setupScrollControl() {
     let lastScrollTime = 0;
-    const scrollCooldown = 1000; // 1 second between scrolls
-    const DEBUG = true; // Set to false to disable logging
+    const scrollCooldown = 1500; // 1.5 seconds between scrolls
+    const DEBUG = false; // Set to true only for debugging - improves performance in production
 
     const handleWheel = (e) => {
       // Ignore wheel events during programmatic scrolling
@@ -62,33 +62,51 @@ class StickyScrollReveal {
         return;
       }
 
-      // If we're in exit mode, keep allowing natural scroll until we leave
+      // If we're in exit mode, check if user changed direction - re-engage if so
       if (this.isExiting) {
-        if (DEBUG) console.log('🚪 Exiting section - allowing natural scroll');
-        return;
+        const wasScrollingDown = this.lastScrollDirection === 'down';
+        const isScrollingDown = scrollingDown;
+
+        // If direction changed while exiting, re-engage
+        if (wasScrollingDown !== isScrollingDown) {
+          if (DEBUG) console.log('🔄 Direction changed during exit - re-engaging');
+          this.isExiting = false;
+        } else {
+          if (DEBUG) console.log('🚪 Exiting section - allowing natural scroll');
+          return;
+        }
       }
 
-      // Allow entry scroll - don't intercept until we've entered and landed on a segment
+      this.lastScrollDirection = scrollingDown ? 'down' : 'up';
+
+      // Allow entry scroll - don't intercept until we've entered and settled on segment 0
       if (!this.hasEntered) {
         if (DEBUG) console.log('⏭️  Entry phase - allowing natural scroll', {
           rectTop: Math.round(rect.top),
           currentIndex: this.currentIndex
         });
 
-        // Mark as entered when section is halfway visible
-        if (rect.top <= window.innerHeight * 0.5) {
+        // Mark as entered when first text block is in position
+        const firstBlockRect = this.textBlocks[0].getBoundingClientRect();
+        const viewportCenter = window.innerHeight / 2;
+
+        // Check if first block is centered (within 20% of viewport center)
+        const isFirstBlockCentered = Math.abs(firstBlockRect.top + firstBlockRect.height / 2 - viewportCenter) < window.innerHeight * 0.2;
+
+        if (rect.top <= window.innerHeight * 0.5 && isFirstBlockCentered) {
           if (DEBUG) console.log('✅ Entering section - hasEntered set to true');
           this.hasEntered = true;
           this.enteredTime = now;
-          return; // Allow one more natural scroll after entering
+          this.currentIndex = 0;
+          this.activateBlock(0, true); // Ensure first block is active
+          return;
         } else {
           return; // Still entering, allow natural scroll
         }
       }
 
-      // Grace period after entering - allow natural settling
-      // Longer grace period to ensure segment 0 is visible before navigation starts
-      if (now - this.enteredTime < 1000) {
+      // Grace period after entering - allow settling before navigation
+      if (now - this.enteredTime < 500) {
         if (DEBUG) console.log('⏳ Entry grace period - allowing natural scroll');
         return;
       }
@@ -187,41 +205,38 @@ class StickyScrollReveal {
   activateBlock(index, skipTransition = false) {
     if (index === this.currentIndex && !skipTransition) return;
 
-    console.log('🔄 Activating block:', {
-      index,
-      skipTransition,
-      previousIndex: this.currentIndex
+    // Use requestAnimationFrame for smooth animation updates
+    requestAnimationFrame(() => {
+      // Update text blocks
+      this.textBlocks.forEach((block, i) => {
+        // Temporarily disable transitions for instant activation
+        if (skipTransition && i === index) {
+          block.style.transition = 'none';
+        }
+
+        block.classList.remove('is-active', 'is-past');
+
+        if (i === index) {
+          block.classList.add('is-active');
+        } else if (i < index) {
+          block.classList.add('is-past');
+        }
+
+        // Re-enable transitions after a frame
+        if (skipTransition && i === index) {
+          requestAnimationFrame(() => {
+            block.style.transition = '';
+          });
+        }
+      });
+
+      // Update images - use will-change hint for GPU acceleration
+      this.imageWrappers.forEach((wrapper, i) => {
+        wrapper.classList.toggle('is-active', i === index);
+      });
+
+      this.currentIndex = index;
     });
-
-    // Update text blocks
-    this.textBlocks.forEach((block, i) => {
-      // Temporarily disable transitions for instant activation
-      if (skipTransition && i === index) {
-        block.style.transition = 'none';
-      }
-
-      block.classList.remove('is-active', 'is-past');
-
-      if (i === index) {
-        block.classList.add('is-active');
-      } else if (i < index) {
-        block.classList.add('is-past');
-      }
-
-      // Re-enable transitions after a frame
-      if (skipTransition && i === index) {
-        requestAnimationFrame(() => {
-          block.style.transition = '';
-        });
-      }
-    });
-
-    // Update images
-    this.imageWrappers.forEach((wrapper, i) => {
-      wrapper.classList.toggle('is-active', i === index);
-    });
-
-    this.currentIndex = index;
   }
 
   destroy() {

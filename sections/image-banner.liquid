@@ -170,7 +170,8 @@
         section.settings.product_overlay_image
         | image_url: width: 600
         | image_tag:
-          loading: 'lazy',
+          loading: 'eager',
+          fetchpriority: 'high',
           class: 'banner__product-overlay-image'
       }}
     </div>

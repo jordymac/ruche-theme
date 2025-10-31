@@ -222,8 +222,12 @@
                       {{- 'icon-caret.svg' | inline_asset_content -}}
                     </summary>
                     <div class="accordion__content rte" id="ProductAccordion-{{ block.id }}-{{ section.id }}">
-                      {{ block.settings.content }}
-                      {{ block.settings.page.content }}
+                      {%- if block.settings.metafield_namespace != blank and block.settings.metafield_key != blank -%}
+                        {{ product.metafields[block.settings.metafield_namespace][block.settings.metafield_key] }}
+                      {%- else -%}
+                        {{ block.settings.content }}
+                        {{ block.settings.page.content }}
+                      {%- endif -%}
                     </div>
                   </details>
                 </div>
@@ -1155,7 +1159,8 @@
         {
           "type": "richtext",
           "id": "content",
-          "label": "t:sections.main-product.blocks.collapsible_tab.settings.content.label"
+          "label": "t:sections.main-product.blocks.collapsible_tab.settings.content.label",
+          "info": "Use 'Connect dynamic source' button to pull from product metafields, OR type manual content here"
         },
         {
           "type": "page",

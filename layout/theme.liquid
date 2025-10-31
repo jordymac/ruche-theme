@@ -11,9 +11,19 @@
       <link rel="icon" type="image/png" href="{{ settings.favicon | image_url: width: 32, height: 32 }}">
     {%- endif -%}
 
+    {%- comment -%} Performance: Resource hints for CDN and assets {%- endcomment -%}
+    <link rel="preconnect" href="https://cdn.shopify.com" crossorigin>
+    <link rel="dns-prefetch" href="https://cdn.shopify.com">
+
     {%- unless settings.type_header_font.system? and settings.type_body_font.system? -%}
       <link rel="preconnect" href="https://fonts.shopifycdn.com" crossorigin>
     {%- endunless -%}
+
+    {%- comment -%} Preload critical hero images for LCP optimization {%- endcomment -%}
+    {%- if template.name == 'index' -%}
+      <link rel="preload" as="image" href="{{ 'ruche-branding-photo-child-with-mum.webp' | file_img_url: '1500x' }}" imagesrcset="{{ 'ruche-branding-photo-child-with-mum.webp' | file_img_url: '750x' }} 750w, {{ 'ruche-branding-photo-child-with-mum.webp' | file_img_url: '1500x' }} 1500w" imagesizes="50vw">
+      <link rel="preload" as="image" href="{{ 'ruche-baby-changing-mat-bag-product-shot.webp' | file_img_url: '600x' }}">
+    {%- endif -%}
 
     <title>
       {{ page_title }}
@@ -28,6 +38,7 @@
 
     {% render 'meta-tags' %}
 
+    <script src="{{ 'loading-screen.js' | asset_url }}" defer="defer"></script>
     <script src="{{ 'constants.js' | asset_url }}" defer="defer"></script>
     <script src="{{ 'pubsub.js' | asset_url }}" defer="defer"></script>
     <script src="{{ 'global.js' | asset_url }}" defer="defer"></script>
@@ -43,18 +54,22 @@
 
     {{ content_for_header }}
 
+    {%- comment -%} Load color schemes and CSS variables from external file for better performance {%- endcomment -%}
+    {{ 'color-schemes.css' | asset_url | stylesheet_tag }}
+
     {%- liquid
       assign body_font_bold = settings.type_body_font | font_modify: 'weight', 'bold'
       assign body_font_italic = settings.type_body_font | font_modify: 'style', 'italic'
       assign body_font_bold_italic = body_font_bold | font_modify: 'style', 'italic'
     %}
 
+    {%- comment -%} Critical inline CSS for fonts and base styles {%- endcomment -%}
     {% style %}
-      {{ settings.type_body_font | font_face: font_display: 'swap' }}
-      {{ body_font_bold | font_face: font_display: 'swap' }}
-      {{ body_font_italic | font_face: font_display: 'swap' }}
-      {{ body_font_bold_italic | font_face: font_display: 'swap' }}
-      {{ settings.type_header_font | font_face: font_display: 'swap' }}
+      {{ settings.type_body_font | font_face: font_display: 'block' }}
+      {{ body_font_bold | font_face: font_display: 'block' }}
+      {{ body_font_italic | font_face: font_display: 'block' }}
+      {{ body_font_bold_italic | font_face: font_display: 'block' }}
+      {{ settings.type_header_font | font_face: font_display: 'block' }}
 
       {% for scheme in settings.color_schemes -%}
         {% assign scheme_classes = scheme_classes | append: ', .color-' | append: scheme.id %}
@@ -257,9 +272,13 @@
       }
     {% endstyle %}
 
+    {%- comment -%} Critical CSS - loaded synchronously {%- endcomment -%}
     {{ 'base.css' | asset_url | stylesheet_tag }}
     {{ 'ruche-branding.css' | asset_url | stylesheet_tag }}
-    {{ 'scroll-snap.css' | asset_url | stylesheet_tag }}
+    {{ 'loading-screen.css' | asset_url | stylesheet_tag }}
+
+    {%- comment -%} Non-critical CSS - loaded async with print media trick {%- endcomment -%}
+    <link rel="stylesheet" href="{{ 'scroll-snap.css' | asset_url }}" media="print" onload="this.media='all'">
     <link rel="stylesheet" href="{{ 'component-cart-items.css' | asset_url }}" media="print" onload="this.media='all'">
 
     {%- if settings.cart_type == 'drawer' -%}
@@ -302,7 +321,17 @@
     </script>
   </head>
 
-  <body class="gradient{% if settings.animations_hover_elements != 'none' %} animate--hover-{{ settings.animations_hover_elements }}{% endif %}">
+  <body class="gradient{% if settings.animations_hover_elements != 'none' %} animate--hover-{{ settings.animations_hover_elements }}{% endif %} template-{{ template.name }}">
+    {%- comment -%} Loading screen - first visual element {%- endcomment -%}
+    <div id="loading-screen" class="loading-screen">
+      <img
+        src="{{ 'Ruche-BrandmarkWhite_5.svg' | asset_url }}"
+        alt="Ruche"
+        class="loading-screen__logo"
+        width="120"
+        height="120">
+    </div>
+
     <a class="skip-to-content-link button visually-hidden" href="#MainContent">
       {{ 'accessibility.skip_to_text' | t }}
     </a>

@@ -25,6 +25,12 @@ CRITICAL: ALL Shopify theme work MUST happen in the ruche-theme/ directory.
 Working directory: `cd ruche-theme/`
 Deploy command: `shopify theme push --theme 136720220226`
 
+# animations
+When designing animations, ALWAYS check for existing animation systems in assets/ directory first.
+- Check assets/animations.js for scroll-trigger animation system
+- Use existing classes: `scroll-trigger`, `animate--slide-in`, `scroll-trigger--offscreen`
+- Use `data-cascade` and `--animation-order` for staggered animations (75ms delay per order)
+
 # 🪞 Ruche — Core Voice
 
 Ruche exists *for the woman behind the mother.*  

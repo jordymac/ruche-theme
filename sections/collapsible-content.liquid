@@ -93,8 +93,43 @@
                     role="region"
                     aria-labelledby="Summary-{{ block.id }}-{{ section.id }}"
                   >
-                    {{ block.settings.row_content }}
-                    {{ block.settings.page.content }}
+                    {%- if block.settings.content_source == 'metafield' and block.settings.metafield_namespace != blank and block.settings.metafield_key != blank -%}
+                      {%- liquid
+                        assign metafield_content = ''
+                        case block.settings.metafield_source_type
+                          when 'product'
+                            if block.settings.metafield_product
+                              assign metafield_content = block.settings.metafield_product.metafields[block.settings.metafield_namespace][block.settings.metafield_key]
+                            elsif product
+                              assign metafield_content = product.metafields[block.settings.metafield_namespace][block.settings.metafield_key]
+                            endif
+                          when 'collection'
+                            if block.settings.metafield_collection
+                              assign metafield_content = block.settings.metafield_collection.metafields[block.settings.metafield_namespace][block.settings.metafield_key]
+                            elsif collection
+                              assign metafield_content = collection.metafields[block.settings.metafield_namespace][block.settings.metafield_key]
+                            endif
+                          when 'article'
+                            if block.settings.metafield_article
+                              assign metafield_content = block.settings.metafield_article.metafields[block.settings.metafield_namespace][block.settings.metafield_key]
+                            elsif article
+                              assign metafield_content = article.metafields[block.settings.metafield_namespace][block.settings.metafield_key]
+                            endif
+                          when 'page'
+                            if block.settings.metafield_page
+                              assign metafield_content = block.settings.metafield_page.metafields[block.settings.metafield_namespace][block.settings.metafield_key]
+                            elsif page
+                              assign metafield_content = page.metafields[block.settings.metafield_namespace][block.settings.metafield_key]
+                            endif
+                          when 'shop'
+                            assign metafield_content = shop.metafields[block.settings.metafield_namespace][block.settings.metafield_key]
+                        endcase
+                      -%}
+                      {{ metafield_content }}
+                    {%- else -%}
+                      {{ block.settings.row_content }}
+                      {{ block.settings.page.content }}
+                    {%- endif -%}
                   </div>
                 </details>
               </div>
@@ -484,7 +519,8 @@
         {
           "type": "richtext",
           "id": "row_content",
-          "label": "t:sections.collapsible_content.blocks.collapsible_row.settings.row_content.label"
+          "label": "t:sections.collapsible_content.blocks.collapsible_row.settings.row_content.label",
+          "info": "Use 'Connect dynamic source' button to pull from product/collection/page metafields, OR type manual content here"
         },
         {
           "type": "page",

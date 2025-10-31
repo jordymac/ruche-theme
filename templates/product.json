@@ -61,7 +61,7 @@
           "settings": {
             "heading": "Materials",
             "icon": "leather",
-            "content": "",
+            "content": "{{ product.metafields.custom.materials | metafield_tag }}",
             "page": ""
           }
         },
@@ -70,7 +70,7 @@
           "settings": {
             "heading": "Shipping & Returns",
             "icon": "truck",
-            "content": "",
+            "content": "<p>Free-shipping on orders over $300</p>",
             "page": ""
           }
         },
@@ -79,7 +79,7 @@
           "settings": {
             "heading": "Dimensions",
             "icon": "ruler",
-            "content": "",
+            "content": "{{ product.metafields.custom.dimensions | metafield_tag }}",
             "page": ""
           }
         },
@@ -88,7 +88,7 @@
           "settings": {
             "heading": "Care Instructions",
             "icon": "heart",
-            "content": "",
+            "content": "<p>{{ product.metafields.custom.care_instructions | metafield_tag }}</p>",
             "page": ""
           }
         },

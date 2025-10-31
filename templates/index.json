@@ -62,47 +62,6 @@
       "type": "marquee",
       "settings": {}
     },
-    "sticky_scroll_reveal_4fijjz": {
-      "type": "sticky-scroll-reveal",
-      "blocks": {
-        "image_text_pair_3HtzVy": {
-          "type": "image_text_pair",
-          "settings": {
-            "image": "shopify://shop_images/Frame7.webp",
-            "heading": "STYLE IS PART OF THE STORY.",
-            "text": "<p>Motherhood doesn't mean compromising on aesthetics - design should elevate, not diminish, your</p>"
-          }
-        },
-        "image_text_pair_Utm9MB": {
-          "type": "image_text_pair",
-          "settings": {
-            "image": "shopify://shop_images/Frame8.webp",
-            "heading": "SAFETY IS NON-NEGOTIABLE.",
-            "text": "<p>Every product we create is built on the foundation of safe, sustainable, and skin-friendly materials.</p>"
-          }
-        },
-        "image_text_pair_eaeadE": {
-          "type": "image_text_pair",
-          "settings": {
-            "image": "shopify://shop_images/Frame9.webp",
-            "heading": "MINIMAL DESIGN THAT GIVES YOU MORE.",
-            "text": "<p>You don't need more baby gear. You need multi-functional essentials that last and look good.</p>"
-          }
-        }
-      },
-      "block_order": [
-        "image_text_pair_3HtzVy",
-        "image_text_pair_Utm9MB",
-        "image_text_pair_eaeadE"
-      ],
-      "name": "Sticky Scroll Reveal",
-      "settings": {
-        "heading_size": "h1",
-        "color_scheme": "",
-        "padding_top": 36,
-        "padding_bottom": 36
-      }
-    },
     "product_showcase": {
       "type": "product-showcase",
       "blocks": {
@@ -162,7 +121,7 @@
         "text": {
           "type": "text",
           "settings": {
-            "text": "<p>I founded Ruche after becoming a mum myself. As an entrepreneur, solicitor, wife, and mother, I was overwhelmed by baby products that looked childish, felt impractical, or fell short on safety. My lightbulb moment came during postpartum, when I had to change my baby on a public bathroom table and was shocked by how unhygienic it was.</p><p>That moment sparked a mission: to create products that protect our babies while empowering mums to feel confident, chic, and put together. I built Ruche to redefine motherhood with essentials that are safe, stylish, and seamlessly designed for modern living.</p>"
+            "text": "<p>I founded Ruche after becoming a mum myself. I was overwhelmed by baby products that looked childish, felt impractical, or fell short on safety. My lightbulb moment came during postpartum, when I had to change my baby on a public bathroom table and was shocked by how unhygienic it was.</p><p>That moment sparked a mission: to create products that protect our babies while empowering mums to feel confident, chic, and put together. I built Ruche to redefine motherhood with essentials that are safe, stylish, and seamlessly designed for modern living.</p>"
           }
         },
         "button": {
@@ -279,43 +238,109 @@
         "margin_bottom": 0
       }
     },
+    "featured_product_EeMrB4": {
+      "type": "featured-product",
+      "blocks": {
+        "text_NpgUbR": {
+          "type": "text",
+          "settings": {
+            "text": "{{ section.settings.product.vendor }}",
+            "text_style": "uppercase"
+          }
+        },
+        "title_HXmghN": {
+          "type": "title",
+          "settings": {
+            "heading_size": "h1"
+          }
+        },
+        "price_f7NneT": {
+          "type": "price",
+          "settings": {}
+        },
+        "variant_picker_WQ9mPx": {
+          "type": "variant_picker",
+          "settings": {
+            "picker_type": "button",
+            "swatch_shape": "circle"
+          }
+        },
+        "quantity_selector_cMCYgJ": {
+          "type": "quantity_selector",
+          "settings": {}
+        },
+        "buy_buttons_YLjYmN": {
+          "type": "buy_buttons",
+          "settings": {
+            "show_dynamic_checkout": true,
+            "show_gift_card_recipient": true
+          }
+        },
+        "share_UBpky8": {
+          "type": "share",
+          "settings": {
+            "share_label": "Share"
+          }
+        }
+      },
+      "block_order": [
+        "text_NpgUbR",
+        "title_HXmghN",
+        "price_f7NneT",
+        "variant_picker_WQ9mPx",
+        "quantity_selector_cMCYgJ",
+        "buy_buttons_YLjYmN",
+        "share_UBpky8"
+      ],
+      "name": "t:sections.featured-product.presets.name",
+      "settings": {
+        "product": "ruche-baby-change-bag",
+        "color_scheme": "scheme-3",
+        "secondary_background": false,
+        "media_size": "medium",
+        "constrain_to_viewport": true,
+        "media_fit": "contain",
+        "media_position": "left",
+        "image_zoom": "lightbox",
+        "hide_variants": false,
+        "enable_video_looping": false,
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
     "collapsible_content_ptQVPF": {
       "type": "collapsible-content",
       "blocks": {
         "collapsible_row_ic4xUj": {
           "type": "collapsible_row",
+          "source": "{{ metaobjects.frequently_asked_questions[\"do-you-ship-internationally\"] }}",
           "settings": {
-            "heading": "Collapsible row",
-            "icon": "check_mark",
-            "row_content": "",
-            "page": ""
+            "heading": "{{ metaobjects.frequently_asked_questions[\"do-you-ship-internationally\"].questions.value }}",
+            "row_content": "<p>{{ metaobjects.frequently_asked_questions[\"do-you-ship-internationally\"].answer | metafield_tag }}</p>"
           }
         },
         "collapsible_row_6acPha": {
           "type": "collapsible_row",
+          "source": "{{ metaobjects.frequently_asked_questions[\"can-i-use-it-from-birth\"] }}",
           "settings": {
-            "heading": "Collapsible row",
-            "icon": "check_mark",
-            "row_content": "",
-            "page": ""
+            "heading": "{{ metaobjects.frequently_asked_questions[\"can-i-use-it-from-birth\"].questions.value }}",
+            "row_content": "<p>{{ metaobjects.frequently_asked_questions[\"can-i-use-it-from-birth\"].answer | metafield_tag }}</p>"
           }
         },
         "collapsible_row_xTi4TP": {
           "type": "collapsible_row",
+          "source": "{{ metaobjects.frequently_asked_questions[\"will-it-fit-my-pram\"] }}",
           "settings": {
-            "heading": "Collapsible row",
-            "icon": "check_mark",
-            "row_content": "",
-            "page": ""
+            "heading": "{{ metaobjects.frequently_asked_questions[\"will-it-fit-my-pram\"].questions.value }}",
+            "row_content": "<p>{{ metaobjects.frequently_asked_questions[\"will-it-fit-my-pram\"].answer | metafield_tag }}</p>"
           }
         },
         "collapsible_row_TJX3D3": {
           "type": "collapsible_row",
+          "source": "{{ metaobjects.frequently_asked_questions[\"how-does-the-antibacterial-technology-work\"] }}",
           "settings": {
-            "heading": "Collapsible row",
-            "icon": "check_mark",
-            "row_content": "",
-            "page": ""
+            "heading": "{{ metaobjects.frequently_asked_questions[\"how-does-the-antibacterial-technology-work\"].questions.value }}",
+            "row_content": "{{ metaobjects.frequently_asked_questions[\"how-does-the-antibacterial-technology-work\"].answer | metafield_tag }}"
           }
         }
       },
@@ -345,12 +370,12 @@
   "order": [
     "image_banner",
     "marquee_DkMpQR",
-    "sticky_scroll_reveal_4fijjz",
     "product_showcase",
     "story_section",
     "brand_story_rWLtAr",
     "product_benefits_gK6pme",
     "full_image_CqbkP7",
+    "featured_product_EeMrB4",
     "collapsible_content_ptQVPF"
   ]
 }

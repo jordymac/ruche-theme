@@ -37,17 +37,17 @@
         {%- for block in section.blocks -%}
           {%- case block.type -%}
             {%- when 'subheading' -%}
-              <p class="story-section__subheading" {{ block.shopify_attributes }}>
+              <p class="story-section__subheading scroll-trigger animate--slide-in" data-cascade style="--animation-order: 1;" {{ block.shopify_attributes }}>
                 {{ block.settings.subheading }}
               </p>
 
             {%- when 'heading' -%}
-              <h2 class="story-section__heading {{ block.settings.heading_size }}" {{ block.shopify_attributes }}>
+              <h2 class="story-section__heading {{ block.settings.heading_size }} scroll-trigger animate--slide-in" data-cascade style="--animation-order: 2;" {{ block.shopify_attributes }}>
                 {{ block.settings.heading }}
               </h2>
 
             {%- when 'text' -%}
-              <div class="story-section__text rte" {{ block.shopify_attributes }}>
+              <div class="story-section__text rte scroll-trigger animate--slide-in" data-cascade style="--animation-order: 3;" {{ block.shopify_attributes }}>
                 {{ block.settings.text }}
               </div>
 
@@ -59,7 +59,9 @@
                   {% else %}
                     href="{{ block.settings.button_link }}"
                   {% endif %}
-                  class="button{% if block.settings.button_style_secondary %} button--secondary{% else %} button--primary{% endif %}"
+                  class="button{% if block.settings.button_style_secondary %} button--secondary{% else %} button--primary{% endif %} scroll-trigger animate--slide-in"
+                  data-cascade
+                  style="--animation-order: 4;"
                   {{ block.shopify_attributes }}
                 >
                   {{ block.settings.button_label | escape }}

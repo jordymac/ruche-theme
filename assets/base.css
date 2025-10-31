@@ -218,6 +218,17 @@ body:has(.section-header .drawer-menu) .announcement-bar-section .page-width {
   padding-bottom: 0;
 }
 
+/* Add header spacing to first section on all pages except home */
+body:not(.template-index) .section:first-child {
+  padding-top: calc(var(--header-height, 80px) + var(--spacing-sections-mobile));
+}
+
+@media screen and (min-width: 750px) {
+  body:not(.template-index) .section:first-child {
+    padding-top: calc(var(--header-height, 80px) + var(--spacing-sections-desktop));
+  }
+}
+
 .section + .section {
   padding-top: var(--spacing-sections-mobile);
 }
@@ -1296,7 +1307,7 @@ button.shopify-payment-button__button--unbranded {
   transition: box-shadow var(--duration-short) ease;
   -webkit-appearance: none;
   appearance: none;
-  background-color: rgba(var(--color-button), var(--alpha-button-background));
+  background-color: rgb(var(--color-button));
 }
 
 .button:before,

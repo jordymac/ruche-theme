@@ -20,20 +20,20 @@
     {%- comment -%} Problem Section {%- endcomment -%}
     <div class="brand-story__problem">
       {%- if section.settings.problem_subheading != blank -%}
-        <p class="brand-story__subheading brand-story__subheading--problem">
+        <p class="brand-story__subheading brand-story__subheading--problem scroll-trigger animate--slide-in" data-cascade style="--animation-order: 1;">
           {{ section.settings.problem_subheading }}
         </p>
       {%- endif -%}
 
       {%- if section.settings.problem_heading != blank -%}
-        <h2 class="brand-story__heading brand-story__heading--problem {{ section.settings.heading_size }}">
+        <h2 class="brand-story__heading brand-story__heading--problem {{ section.settings.heading_size }} scroll-trigger animate--slide-in" data-cascade style="--animation-order: 2;">
           {{ section.settings.problem_heading }}
         </h2>
       {%- endif -%}
 
       <div class="brand-story__content-wrapper">
         {%- if section.settings.problem_text != blank -%}
-          <div class="brand-story__text brand-story__text--problem rte">
+          <div class="brand-story__text brand-story__text--problem rte scroll-trigger animate--slide-in" data-cascade style="--animation-order: 3;">
             {{ section.settings.problem_text }}
           </div>
         {%- endif -%}
@@ -64,19 +64,19 @@
 
       <div class="brand-story__content-wrapper brand-story__content-wrapper--solution">
         {%- if section.settings.solution_subheading != blank -%}
-          <p class="brand-story__subheading brand-story__subheading--solution">
+          <p class="brand-story__subheading brand-story__subheading--solution scroll-trigger animate--slide-in" data-cascade style="--animation-order: 1;">
             {{ section.settings.solution_subheading }}
           </p>
         {%- endif -%}
 
         {%- if section.settings.solution_heading != blank -%}
-          <h2 class="brand-story__heading brand-story__heading--solution {{ section.settings.heading_size }}">
+          <h2 class="brand-story__heading brand-story__heading--solution {{ section.settings.heading_size }} scroll-trigger animate--slide-in" data-cascade style="--animation-order: 2;">
             {{ section.settings.solution_heading }}
           </h2>
         {%- endif -%}
 
         {%- if section.settings.solution_text != blank -%}
-          <div class="brand-story__text brand-story__text--solution rte">
+          <div class="brand-story__text brand-story__text--solution rte scroll-trigger animate--slide-in" data-cascade style="--animation-order: 3;">
             {{ section.settings.solution_text }}
           </div>
         {%- endif -%}

@@ -39,18 +39,12 @@
         --color-border-rgb: {{ scheme.settings.border.rgb }};
         --color-shadow: rgb({{ scheme.settings.shadow.rgba }});
         --color-shadow-rgb: {{ scheme.settings.shadow.rgb }};
-        --color-primary-button-text: rgb({{ scheme.settings.primary_button_text.rgba }});
-        --color-primary-button-background: rgb({{ scheme.settings.primary_button_background.rgba }});
-        --color-primary-button-border: rgb({{ scheme.settings.primary_button_border.rgba }});
-        --color-primary-button-hover-text: rgb({{ scheme.settings.primary_button_hover_text.rgba }});
-        --color-primary-button-hover-background: rgb({{ scheme.settings.primary_button_hover_background.rgba }});
-        --color-primary-button-hover-border: rgb({{ scheme.settings.primary_button_hover_border.rgba }});
-        --color-secondary-button-text: rgb({{ scheme.settings.secondary_button_text.rgba }});
-        --color-secondary-button-background: rgb({{ scheme.settings.secondary_button_background.rgba }});
-        --color-secondary-button-border: rgb({{ scheme.settings.secondary_button_border.rgba }});
-        --color-secondary-button-hover-text: rgb({{ scheme.settings.secondary_button_hover_text.rgba }});
-        --color-secondary-button-hover-background: rgb({{ scheme.settings.secondary_button_hover_background.rgba }});
-        --color-secondary-button-hover-border: rgb({{ scheme.settings.secondary_button_hover_border.rgba }});
+
+        /* Button colors - using direct field references */
+        --color-button: {{ scheme.settings.button.red }}, {{ scheme.settings.button.green }}, {{ scheme.settings.button.blue }};
+        --color-button-text: {{ scheme.settings.button_label.red }}, {{ scheme.settings.button_label.green }}, {{ scheme.settings.button_label.blue }};
+        --color-secondary-button: {{ scheme.settings.background.red }}, {{ scheme.settings.background.green }}, {{ scheme.settings.background.blue }};
+        --color-secondary-button-text: {{ scheme.settings.secondary_button_label.red }}, {{ scheme.settings.secondary_button_label.green }}, {{ scheme.settings.secondary_button_label.blue }};
         --color-input-background: rgb({{ scheme.settings.input_background.rgba }});
         --color-input-text: rgb({{ scheme.settings.input_text_color.rgba }});
         --color-input-text-rgb: {{ scheme.settings.input_text_color.rgb }};
@@ -69,12 +63,6 @@
         --color-selected-variant-hover-background: rgb({{ scheme.settings.selected_variant_hover_background_color.rgba }});
         --color-selected-variant-hover-text: rgb({{ scheme.settings.selected_variant_hover_text_color.rgba }});
         --color-selected-variant-hover-border: rgb({{ scheme.settings.selected_variant_hover_border_color.rgba }});
-
-        /* Map button colors for base.css button styles */
-        --color-button: var(--color-primary-button-background);
-        --color-button-text: var(--color-primary-button-text);
-        --color-secondary-button: var(--color-secondary-button-background);
-        --color-secondary-button-text: var(--color-secondary-button-text);
 
         --input-disabled-background-color: rgb(var(--color-foreground-rgb) / var(--opacity-10));
         --input-disabled-border-color: rgb(var(--color-foreground-rgb) / var(--opacity-5-15));
